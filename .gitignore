@@ -39,3 +39,4 @@ build/
 
 ### Outputs ###
 src/main/resources/outputs/
+src/main/resources/extracted/

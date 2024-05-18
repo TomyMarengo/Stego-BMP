@@ -1,31 +1,17 @@
 package ar.edu.itba.cripto;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Embedder {
+public class Embedder extends Operator {
     private final String inFilePath;
-    private final String outFilePath;
-    private final String pBitmapFilePath;
-    private final String stegMethod;
-    private final String algorithm;
-    private final String mode;
-    private final String password;
-    private static final int HEADER_SIZE = 54; // BMP header is typically 54 bytes
 
     public Embedder(String inFile, String outFile, String pBitmapFile, String stegMethod, String algorithm, String mode, String password) {
+        super(outFile, pBitmapFile, stegMethod, algorithm, mode, password);
         this.inFilePath = inFile;
-        this.outFilePath = outFile;
-        this.pBitmapFilePath = pBitmapFile;
-        this.stegMethod = stegMethod;
-        this.algorithm = algorithm;
-        this.mode = mode;
-        this.password = password;
     }
 
     public void embed() throws Exception {
@@ -92,7 +78,7 @@ public class Embedder {
     }
 
     private byte[] embedLSB1(byte[] image, byte[] data) {
-        int offset = HEADER_SIZE;
+        int offset = SteganographyUtil.HEADER_SIZE;
         for (byte b : data) {
             for (int bit = 7; bit >= 0; bit--) {
                 int bitValue = (b >> bit) & 1;
@@ -104,7 +90,7 @@ public class Embedder {
     }
 
     private byte[] embedLSB4(byte[] image, byte[] data) {
-        int offset = HEADER_SIZE;
+        int offset = SteganographyUtil.HEADER_SIZE;;
         for (byte b : data) {
             for (int nibble = 1; nibble >= 0; nibble--) {
                 int nibbleValue = (b >> (nibble * 4)) & 0x0F;
@@ -116,7 +102,7 @@ public class Embedder {
     }
 
     private byte[] embedLSBI(byte[] image, byte[] data) {
-        int offset = HEADER_SIZE;
+        int offset = SteganographyUtil.HEADER_SIZE;;
         // Pattern counters
         Map<Integer, Integer> changeCount = new HashMap<>();
         Map<Integer, Integer> noChangeCount = new HashMap<>();
@@ -132,21 +118,23 @@ public class Embedder {
         for (byte b : data) {
             for (int bit = 7; bit >= 0; bit--) {
                 int bitValue = (b >> bit) & 1;
-                int currentByte = image[offset] & 0xFF;
 
-                // Get the pattern of the 2 least significant bits
-                int patternBits = (currentByte >> 1) & 0x03;
+                if ((offset + 1) % 3 != 0) { // Skip the LSB of the red channel
+                    int currentByte = image[offset] & 0xFF;
+                    int patternBits = (currentByte >> 1) & 0x03;
+                    int lsbBefore = currentByte & 1;
 
-                // Compare the least significant bit before and after the change
-                int lsbBefore = currentByte & 1;
-                image[offset] = (byte) ((currentByte & 0xFE) | bitValue);
-                int lsbAfter = image[offset] & 1;
+                    image[offset] = (byte) ((currentByte & 0xFE) | bitValue);
+                    int lsbAfter = image[offset] & 1;
 
-                // Update the counters
-                if (lsbBefore != lsbAfter) {
-                    changeCount.put(patternBits, changeCount.get(patternBits) + 1);
+                    if (lsbBefore != lsbAfter) {
+                        changeCount.put(patternBits, changeCount.get(patternBits) + 1);
+                    } else {
+                        noChangeCount.put(patternBits, noChangeCount.get(patternBits) + 1);
+                    }
+                    System.out.println(offset);
                 } else {
-                    noChangeCount.put(patternBits, noChangeCount.get(patternBits) + 1);
+                    bit++;
                 }
 
                 offset++;
@@ -154,7 +142,7 @@ public class Embedder {
         }
 
         // Second pass: Invert least significant bits where necessary
-        offset = HEADER_SIZE;
+        offset = SteganographyUtil.HEADER_SIZE;;
         for (byte b : data) {
             for (int bit = 7; bit >= 0; bit--) {
                 int currentByte = image[offset] & 0xFF;
@@ -177,7 +165,6 @@ public class Embedder {
             int notChanged = noChangeCount.get(pattern);
 
             image[offset] = (byte) (changed > notChanged ? (image[offset] | 0x01) : (image[offset] & 0xFE));
-            System.out.println(image[offset]);
             offset++;
         }
 
