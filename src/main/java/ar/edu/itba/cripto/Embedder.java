@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Embedder {
     private final String inFilePath;
@@ -13,6 +15,7 @@ public class Embedder {
     private final String algorithm;
     private final String mode;
     private final String password;
+    private static final int HEADER_SIZE = 54; // BMP header is typically 54 bytes
 
     public Embedder(String inFile, String outFile, String pBitmapFile, String stegMethod, String algorithm, String mode, String password) {
         this.inFilePath = inFile;
@@ -76,7 +79,7 @@ public class Embedder {
     }
 
     private byte[] embedLSB1(byte[] image, byte[] data) {
-        int offset = 54; // BMP header is typically 54 bytes
+        int offset = HEADER_SIZE;
         for (byte b : data) {
             for (int bit = 7; bit >= 0; bit--) {
                 int bitValue = (b >> bit) & 1;
@@ -88,7 +91,7 @@ public class Embedder {
     }
 
     private byte[] embedLSB4(byte[] image, byte[] data) {
-        int offset = 54; // BMP header is typically 54 bytes
+        int offset = HEADER_SIZE;
         for (byte b : data) {
             for (int nibble = 1; nibble >= 0; nibble--) {
                 int nibbleValue = (b >> (nibble * 4)) & 0x0F;
@@ -100,6 +103,71 @@ public class Embedder {
     }
 
     private byte[] embedLSBI(byte[] image, byte[] data) {
+        int offset = HEADER_SIZE;
+        // Pattern counters
+        Map<Integer, Integer> changeCount = new HashMap<>();
+        Map<Integer, Integer> noChangeCount = new HashMap<>();
+        int[] patterns = {0b00, 0b01, 0b10, 0b11};
+
+        // Initialize counters
+        for (int pattern : patterns) {
+            changeCount.put(pattern, 0);
+            noChangeCount.put(pattern, 0);
+        }
+
+        // First pass: Steganography and change counting
+        for (byte b : data) {
+            for (int bit = 7; bit >= 0; bit--) {
+                int bitValue = (b >> bit) & 1;
+                int currentByte = image[offset] & 0xFF;
+
+                // Get the pattern of the 2 least significant bits
+                int patternBits = (currentByte >> 1) & 0x03;
+
+                // Compare the least significant bit before and after the change
+                int lsbBefore = currentByte & 1;
+                image[offset] = (byte) ((currentByte & 0xFE) | bitValue);
+                int lsbAfter = image[offset] & 1;
+
+                // Update the counters
+                if (lsbBefore != lsbAfter) {
+                    changeCount.put(patternBits, changeCount.get(patternBits) + 1);
+                } else {
+                    noChangeCount.put(patternBits, noChangeCount.get(patternBits) + 1);
+                }
+
+                offset++;
+            }
+        }
+
+        // Second pass: Invert least significant bits where necessary
+        offset = HEADER_SIZE;
+        for (byte b : data) {
+            for (int bit = 7; bit >= 0; bit--) {
+                int currentByte = image[offset] & 0xFF;
+
+                // Get the pattern of the 2 least significant bits
+                int patternBits = (currentByte >> 1) & 0x03;
+
+                // Invert the least significant bit if there are more changes than no changes
+                if (changeCount.get(patternBits) > noChangeCount.get(patternBits)) {
+                    image[offset] ^= 1; // Invert the least significant bit
+                }
+
+                offset++;
+            }
+        }
+
+        // Update the last 4 bytes to indicate which patterns changed and which did not
+        for (int pattern : patterns) {
+            int changed = changeCount.get(pattern);
+            int notChanged = noChangeCount.get(pattern);
+
+            image[offset] = (byte) (changed > notChanged ? (image[offset] | 0x01) : (image[offset] & 0xFE));
+            System.out.println(image[offset]);
+            offset++;
+        }
+
         return image;
     }
 }
