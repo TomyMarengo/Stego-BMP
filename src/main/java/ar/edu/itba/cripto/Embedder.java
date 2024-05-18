@@ -2,6 +2,7 @@ package ar.edu.itba.cripto;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,16 +28,13 @@ public class Embedder {
         this.password = password;
     }
 
-    public void embed() throws IOException {
+    public void embed() throws Exception {
         // Read the BMP file
         byte[] bmpBytes = Files.readAllBytes(new File(pBitmapFilePath).toPath());
 
         // Read the file to be hidden
         File inFile = new File(inFilePath);
         byte[] fileBytes = Files.readAllBytes(inFile.toPath());
-
-        System.out.println(Arrays.toString(fileBytes));
-        System.out.println(bmpBytes.length);
 
         // Get the file size and extension
         int fileSize = fileBytes.length;
@@ -52,15 +50,30 @@ public class Embedder {
         dataToHide[2] = (byte) (fileSize >> 8);
         dataToHide[3] = (byte) (fileSize);
 
-        System.out.println(Arrays.toString(dataToHide));
         // Embed the file data
         System.arraycopy(fileBytes, 0, dataToHide, 4, fileBytes.length);
-
-        System.out.println(Arrays.toString(dataToHide));
         // Embed the file extension
         System.arraycopy(extensionBytes, 0, dataToHide, 4 + fileBytes.length, extensionBytes.length);
-        System.out.println(Arrays.toString(dataToHide));
 
+        // Encrypt the data to hide
+        if (password != null && !password.isEmpty()) {
+            System.out.println("Encrypting...");
+            dataToHide = SteganographyUtil.encrypt(dataToHide, algorithm, mode, password);
+
+            // add cypher text length to the beginning of the data
+            byte[] dataToHideWithLength = new byte[dataToHide.length + 4];
+            dataToHideWithLength[0] = (byte) (dataToHide.length >> 24);
+            dataToHideWithLength[1] = (byte) (dataToHide.length >> 16);
+            dataToHideWithLength[2] = (byte) (dataToHide.length >> 8);
+            dataToHideWithLength[3] = (byte) (dataToHide.length);
+            System.arraycopy(dataToHide, 0, dataToHideWithLength, 4, dataToHide.length);
+            dataToHide = dataToHideWithLength;
+        }
+
+        String dataAsString = new String(dataToHide, StandardCharsets.UTF_8);
+        System.out.println("Data to hide: " + dataAsString);
+
+        System.out.println("Embedding...");
         byte[] stegoImage = switch (stegMethod) {
             case "LSB1" -> embedLSB1(bmpBytes, dataToHide);
             case "LSB4" -> embedLSB4(bmpBytes, dataToHide);

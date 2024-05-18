@@ -27,8 +27,18 @@ public class Steganography {
         String mode = params.getOrDefault("-m", "cbc");
         String password = params.get("-pass");
 
-        if (pBitmapFile == null || outFile == null || stegMethod == null) {
-            System.out.println("Missing p, out or steg parameters");
+        if (pBitmapFile == null) {
+            System.out.println("Missing p parameter");
+            return;
+        }
+
+        if (outFile == null) {
+            System.out.println("Missing out parameter");
+            return;
+        }
+
+        if (stegMethod == null) {
+            System.out.println("Missing steg parameter");
             return;
         }
 
@@ -42,22 +52,26 @@ public class Steganography {
         System.out.println("Output File: " + outFile);
         System.out.println("Bitmap File: " + pBitmapFile);
         System.out.println("Steganography Method: " + stegMethod);
-        System.out.println("Encryption Algorithm: " + algorithm);
-        System.out.println("Encryption Mode: " + mode);
-        System.out.println("Password: " + (password != null ? "Provided" : "Not Provided"));
+        if (password != null) {
+            System.out.println("Encryption Algorithm: " + algorithm);
+            System.out.println("Encryption Mode: " + mode);
+        }
 
         if (operation.equals("embed")) {
-            System.out.println("Embedding...");
             Embedder embedder = new Embedder(inFile, outFile, pBitmapFile, stegMethod, algorithm, mode, password);
             try {
                 embedder.embed();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 System.out.println("Error embedding file: " + e.getMessage());
             }
         } else {
             System.out.println("Extracting...");
             Extractor extractor = new Extractor(outFile, pBitmapFile, stegMethod, algorithm, mode, password);
-            extractor.extract();
+            try {
+                extractor.extract();
+            } catch (Exception e) {
+                System.out.println("Error extracting file: " + e.getMessage());
+            }
         }
     }
 
