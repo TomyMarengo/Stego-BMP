@@ -75,8 +75,6 @@ public class SteganographyUtil {
             iv = new byte[0]; // If no IV is needed, use an empty array
         }
 
-        System.out.println("Hashed password: " + Arrays.toString(hashedPassword));
-        System.out.println("IV: " + Arrays.toString(iv));
 
         Cipher cipher = Cipher.getInstance(algo + "/" + mo + "/" + PKCS5_PADDING);
         SecretKeySpec keySpec = new SecretKeySpec(hashedPassword, algo);

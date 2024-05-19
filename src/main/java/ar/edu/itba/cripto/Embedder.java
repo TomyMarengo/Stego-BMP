@@ -170,7 +170,6 @@ public class Embedder extends Operator {
             int changed = changeCount.get(pattern);
             int notChanged = noChangeCount.get(pattern);
             image[offset] = (byte) (changed > notChanged ? (image[offset] | 0x01) : (image[offset] & 0xFE));
-            System.out.println("Pattern " + Integer.toBinaryString(pattern) + ": " + changed + " changes, " + notChanged + " no changes");
             offset++;
         }
 

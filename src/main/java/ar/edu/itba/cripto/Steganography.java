@@ -47,31 +47,19 @@ public class Steganography {
             return;
         }
 
-        System.out.println("Operation: " + operation);
-        if (operation.equals("embed")) {
-            System.out.println("Input File: " + inFile);
-        }
-        System.out.println("Output File: " + outFile);
-        System.out.println("Bitmap File: " + pBitmapFile);
-        System.out.println("Steganography Method: " + stegMethod);
-        if (password != null) {
-            System.out.println("Encryption Algorithm: " + algorithm);
-            System.out.println("Encryption Mode: " + mode);
-        }
-
         if (operation.equals("embed")) {
             Embedder embedder = new Embedder(inFile, outFile, pBitmapFile, stegMethod, algorithm, mode, password);
             try {
                 embedder.embed();
             } catch (Exception e) {
-                System.out.println("Error embedding file: " + e.getMessage());
+                System.out.println("Error embedding: " + e.getMessage());
             }
         } else {
             Extractor extractor = new Extractor(outFile, pBitmapFile, stegMethod, algorithm, mode, password);
             try {
                 extractor.extract();
             } catch (Exception e) {
-                System.out.println("Error extracting file: " + e.getMessage());
+                System.out.println("Error extracting: " + e.getMessage());
             }
         }
     }

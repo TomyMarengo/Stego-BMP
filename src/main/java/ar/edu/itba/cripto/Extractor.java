@@ -22,7 +22,7 @@ public class Extractor extends Operator {
 
         // Decrypt the data if necessary
         if (password != null && !password.isEmpty()) {
-            System.out.println("Extracting cypher text...");
+            System.out.println("Extracting cypher data...");
 
             byte[] cipherData = switch (stegMethod) { // cypherLength || ivLength || IV || cypherData = (length || data || extension)
                 case "LSB1" -> extractLSB1(bmpBytes, true);
@@ -37,13 +37,13 @@ public class Extractor extends Operator {
                     | ((cipherData[6] & 0xFF) << 8)
                     | (cipherData[7] & 0xFF);
 
-            System.out.println("IV length: " + ivLength);
             byte[] iv = Arrays.copyOfRange(cipherData, 8, 8 + ivLength);
-            System.out.println("IV: " + Arrays.toString(iv));
             byte[] dataToDecrypt = Arrays.copyOfRange(cipherData, 8 + ivLength, cipherData.length); // cypherData finish before LBSI patterns
-            System.out.println("Data to decrypt: " + Arrays.toString(dataToDecrypt));
+            System.out.println("Decrypting...");
             data = SteganographyUtil.decrypt(dataToDecrypt, algorithm, mode, password, iv); // length || data || extension
         } else {
+            System.out.println("Extracting plain data...");
+
             data = switch (stegMethod) { // length || data || extension
                 case "LSB1" -> extractLSB1(bmpBytes, false);
                 case "LSB4" -> extractLSB4(bmpBytes, false);
@@ -153,8 +153,6 @@ public class Extractor extends Operator {
             offset++;
         }
 
-        System.out.println("Data length: " + dataLength);
-
         // Extract the IV length
         int ivLength = 0;
         if (encrypted) {
@@ -164,14 +162,12 @@ public class Extractor extends Operator {
                 offset++;
             }
         }
-        System.out.println("IV length: " + ivLength);
 
         // Calculate the total length of the data
         int bytesLength = DATA_LENGTH_SIZE + dataLength;
         if (encrypted) {
             bytesLength += + IV_LENGTH_SIZE + ivLength;
         }
-        System.out.println("Total length: " + bytesLength);
 
         // Extract [cypherLength || ivLength || IV || cypherData = (length || data || extension)] or [length || data]
         byte[] extractedData = new byte[bytesLength];
@@ -183,7 +179,6 @@ public class Extractor extends Operator {
                 offset++;
             }
         }
-        System.out.println("Extracted data: " + Arrays.toString(extractedData));
 
         // Extract the extension if is not encrypted
         if (!encrypted) {
