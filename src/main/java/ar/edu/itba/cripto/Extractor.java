@@ -92,16 +92,15 @@ public class Extractor extends Operator {
         }
 
         // Calculate the total length of the data
-        int length = DATA_LENGTH_SIZE + dataLength;
+        int bytesLength = DATA_LENGTH_SIZE + dataLength;
         if (encrypted) {
-            length += IV_LENGTH_SIZE + ivLength;
+            bytesLength += IV_LENGTH_SIZE + ivLength;
         }
 
         // Extract [cypherLength || ivLength || IV || cypherData = (length || data || extension)] or [length || data]
-        byte[] extractedData = new byte[length];
+        byte[] extractedData = new byte[bytesLength];
         offset = SteganographyUtil.HEADER_SIZE;
-        System.out.println("Length: " + length);
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < bytesLength; i++) {
             extractedData[i] = 0;
             for (int bit = 7; bit >= 0; bit--) {
                 extractedData[i] |= (byte) ((image[offset] & 1) << bit);
@@ -133,9 +132,9 @@ public class Extractor extends Operator {
                 extensionArray[i] = extensionBytes.get(i);
             }
             /* returnData array with length || data || extension */
-            byte[] returnData = new byte[length + extensionArray.length];
-            System.arraycopy(extractedData, 0, returnData, 0, length);
-            System.arraycopy(extensionArray, 0, returnData, length, extensionArray.length);
+            byte[] returnData = new byte[bytesLength + extensionArray.length];
+            System.arraycopy(extractedData, 0, returnData, 0, bytesLength);
+            System.arraycopy(extensionArray, 0, returnData, bytesLength, extensionArray.length);
 
             return returnData;
         }
@@ -148,36 +147,75 @@ public class Extractor extends Operator {
 
         // Extract the data length
         int dataLength = 0;
-        for (int i = 0; i < DATA_LENGTH_SIZE * 8 / 4; i++) { // Data length
-            dataLength = (dataLength << 1) | (image[offset] & 0x0F);
+        for (int i = 0; i < DATA_LENGTH_SIZE * 2; i++) { // Data length (4 bits per iteration)
+            int nibble = (image[offset] & 0x0F); // Get the last 4 bits
+            dataLength = (dataLength << 4) | nibble; // Shift left by 4 bits and add the nibble
             offset++;
         }
+
+        System.out.println("Data length: " + dataLength);
 
         // Extract the IV length
         int ivLength = 0;
         if (encrypted) {
-            for (int i = 0; i < IV_LENGTH_SIZE * 8 / 4; i++) { // Next 2 bytes are the IV length
-                ivLength = (ivLength << 1) | (image[offset] & 0x0F);
+            for (int i = 0; i < IV_LENGTH_SIZE * 2; i++) { // IV length (4 bits per iteration)
+                int nibble = (image[offset] & 0x0F); // Get the last 4 bits
+                ivLength = (ivLength << 4) | nibble; // Shift left by 4 bits and add the nibble
                 offset++;
             }
         }
+        System.out.println("IV length: " + ivLength);
 
         // Calculate the total length of the data
-        int length = DATA_LENGTH_SIZE * 8 / 4 + dataLength / 2;
+        int bytesLength = DATA_LENGTH_SIZE + dataLength;
         if (encrypted) {
-            length += + IV_LENGTH_SIZE * 8 / 4 + ivLength / 2;
+            bytesLength += + IV_LENGTH_SIZE + ivLength;
         }
+        System.out.println("Total length: " + bytesLength);
 
-        // Extract the data
-        byte[] extractedData = new byte[length];
-        offset = 0;
-        for (int i = 0; offset < length; i++) {
+        // Extract [cypherLength || ivLength || IV || cypherData = (length || data || extension)] or [length || data]
+        byte[] extractedData = new byte[bytesLength];
+        offset = SteganographyUtil.HEADER_SIZE;
+        for (int i = 0; i < bytesLength; i++) {
             extractedData[i] = 0;
             for (int nibble = 1; nibble >= 0; nibble--) {
                 extractedData[i] |= (byte) ((image[offset] & 0x0F) << (nibble * 4));
                 offset++;
             }
         }
+        System.out.println("Extracted data: " + Arrays.toString(extractedData));
+
+        // Extract the extension if is not encrypted
+        if (!encrypted) {
+            List<Byte> extensionBytes = new ArrayList<>();
+            boolean zeroNotFound = true;
+            byte currentByte;
+
+            while (zeroNotFound) {
+                currentByte = 0;
+                for (int nibble = 1; nibble >= 0; nibble--) {
+                    currentByte |= (byte) ((image[offset] & 0x0F) << (nibble * 4));
+                    offset++;
+                }
+                extensionBytes.add(currentByte);
+                if (currentByte == 0) {
+                    zeroNotFound = false;
+                }
+            }
+
+            // Convert the extension bytes to a character string
+            byte[] extensionArray = new byte[extensionBytes.size()];
+            for (int i = 0; i < extensionArray.length; i++) {
+                extensionArray[i] = extensionBytes.get(i);
+            }
+            /* returnData array with length || data || extension */
+            byte[] returnData = new byte[bytesLength + extensionArray.length];
+            System.arraycopy(extractedData, 0, returnData, 0, bytesLength);
+            System.arraycopy(extensionArray, 0, returnData, bytesLength, extensionArray.length);
+
+            return returnData;
+        }
+
         return extractedData;
     }
 
