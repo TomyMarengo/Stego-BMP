@@ -94,7 +94,6 @@ public class SteganographyUtil {
         System.arraycopy(iv, 0, encryptedDataWithIV, 4, iv.length);
         System.arraycopy(encryptedData, 0, encryptedDataWithIV, iv.length + 4, encryptedData.length);
 
-        System.out.println("(Encrypting)  Encrypted data: " + Base64.getEncoder().encodeToString(encryptedData));
         return encryptedDataWithIV;
     }
 
@@ -126,7 +125,6 @@ public class SteganographyUtil {
             case "cbc" -> CBC_MODE;
             default -> throw new IllegalArgumentException("Invalid encryption mode: " + mode);
         };
-        System.out.println("(Decrypting) Encrypted data: " + Base64.getEncoder().encodeToString(data));
 
         Cipher cipher = Cipher.getInstance(algo + "/" + mo + "/" + PKCS5_PADDING);
         SecretKeySpec keySpec = new SecretKeySpec(hashedPassword, algo);

@@ -23,7 +23,7 @@ public class Extractor extends Operator {
 
         // Decrypt the data if necessary
         if (password != null && !password.isEmpty()) {
-            System.out.println("Extracting cypher data...");
+            System.out.println("(EXTRACT) Extracting cypher data...");
 
             byte[] cipherData = switch (stegMethod) { // cypherLength || ivLength || IV || cypherData = (length || data || extension)
                 case "LSB1" -> extractLSB1(bmpBytes, true);
@@ -40,10 +40,10 @@ public class Extractor extends Operator {
 
             byte[] iv = Arrays.copyOfRange(cipherData, 8, 8 + ivLength);
             byte[] dataToDecrypt = Arrays.copyOfRange(cipherData, 8 + ivLength, cipherData.length); // cypherData finish before LBSI patterns
-            System.out.println("Decrypting...");
+            System.out.println("(EXTRACT) Decrypting...");
             data = SteganographyUtil.decrypt(dataToDecrypt, algorithm, mode, password, iv); // length || data || extension
         } else {
-            System.out.println("Extracting plain data...");
+            System.out.println("(EXTRACT) Extracting plain data...");
 
             data = switch (stegMethod) { // length || data || extension
                 case "LSB1" -> extractLSB1(bmpBytes, false);
@@ -70,6 +70,7 @@ public class Extractor extends Operator {
 
         // Write the extracted file
         File outFile = new File(outFilePath + fileExtension);
+        System.out.println("(EXTRACT) Writing extracted file: " + outFile.getName());
         Files.write(outFile.toPath(), fileData);
     }
 
@@ -242,7 +243,6 @@ public class Extractor extends Operator {
             }
             offset++;
         }
-        System.out.println("Data length: " + dataLength);
 
         // Extract the IV length
         int ivLength = 0;
@@ -263,7 +263,6 @@ public class Extractor extends Operator {
                 }
                 offset++;
             }
-            System.out.println("IV length: " + ivLength);
         }
 
         // Calculate the total length of the data

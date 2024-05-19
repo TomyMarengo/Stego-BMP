@@ -44,7 +44,7 @@ public class Embedder extends Operator {
 
         // Encrypt the data to hide
         if (password != null && !password.isEmpty()) {
-            System.out.println("Encrypting...");
+            System.out.println("(EMBED) Encrypting...");
             dataToHide = SteganographyUtil.encrypt(dataToHide, algorithm, mode, password);
             // Extract IV length from first 4 bytes
             int ivLength = (dataToHide[0] << 24) | (dataToHide[1] << 16) | (dataToHide[2] << 8) | dataToHide[3];
@@ -60,7 +60,7 @@ public class Embedder extends Operator {
             dataToHide = Arrays.copyOf(dataToHideWithLength, dataToHideWithLength.length);
         }
 
-        System.out.println("Embedding...");
+        System.out.println("(EMBED) Embedding...");
         byte[] stegoImage = switch (stegMethod) {
             case "LSB1" -> embedLSB1(bmpBytes, dataToHide);
             case "LSB4" -> embedLSB4(bmpBytes, dataToHide);
@@ -69,6 +69,7 @@ public class Embedder extends Operator {
         };
 
         // Write the new BMP file
+        System.out.println("(EMBED) Writing stego image: " + outFilePath);
         Files.write(new File(outFilePath).toPath(), stegoImage);
     }
 
