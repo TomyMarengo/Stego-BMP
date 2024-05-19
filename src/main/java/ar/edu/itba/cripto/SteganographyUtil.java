@@ -76,11 +76,7 @@ public class SteganographyUtil {
         }
 
         System.out.println("Hashed password: " + Arrays.toString(hashedPassword));
-        String hashedPasswordAsString = new String(hashedPassword, StandardCharsets.UTF_8);
-        System.out.println("Hashed password: " + hashedPasswordAsString);
         System.out.println("IV: " + Arrays.toString(iv));
-        String IVAsString = new String(iv, StandardCharsets.UTF_8);
-        System.out.println("IV: " + IVAsString);
 
         Cipher cipher = Cipher.getInstance(algo + "/" + mo + "/" + PKCS5_PADDING);
         SecretKeySpec keySpec = new SecretKeySpec(hashedPassword, algo);
@@ -91,18 +87,17 @@ public class SteganographyUtil {
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivSpec);
         }
         byte[] encryptedData = cipher.doFinal(data);
-        if (iv.length != 0) {
-            // Encrypt the data and add the IV at the beginning, also add first 4 bytes the length of the IV
-            byte[] encryptedDataWithIV = new byte[iv.length + encryptedData.length + 4];
-            encryptedDataWithIV[0] = (byte) (iv.length >> 24);
-            encryptedDataWithIV[1] = (byte) (iv.length >> 16);
-            encryptedDataWithIV[2] = (byte) (iv.length >> 8);
-            encryptedDataWithIV[3] = (byte) (iv.length);
-            System.arraycopy(iv, 0, encryptedDataWithIV, 4, iv.length);
-            System.arraycopy(encryptedData, 0, encryptedDataWithIV, 4 + iv.length, encryptedData.length);
-            return encryptedDataWithIV;
-        }
-        return encryptedData;
+        // Encrypt the data and add the IV at the beginning, also add first 4 bytes the length of the IV
+        byte[] encryptedDataWithIV = new byte[iv.length + encryptedData.length + 4];
+        encryptedDataWithIV[0] = (byte) (iv.length >> 24);
+        encryptedDataWithIV[1] = (byte) (iv.length >> 16);
+        encryptedDataWithIV[2] = (byte) (iv.length >> 8);
+        encryptedDataWithIV[3] = (byte) (iv.length);
+        System.arraycopy(iv, 0, encryptedDataWithIV, 4, iv.length);
+        System.arraycopy(encryptedData, 0, encryptedDataWithIV, iv.length + 4, encryptedData.length);
+
+        System.out.println("(Encrypting)  Encrypted data: " + Base64.getEncoder().encodeToString(encryptedData));
+        return encryptedDataWithIV;
     }
 
     public static byte[] decrypt(byte[] data, String algorithm, String mode, String password, byte[] iv) throws Exception {
@@ -133,6 +128,7 @@ public class SteganographyUtil {
             case "cbc" -> CBC_MODE;
             default -> throw new IllegalArgumentException("Invalid encryption mode: " + mode);
         };
+        System.out.println("(Decrypting) Encrypted data: " + Base64.getEncoder().encodeToString(data));
 
         Cipher cipher = Cipher.getInstance(algo + "/" + mo + "/" + PKCS5_PADDING);
         SecretKeySpec keySpec = new SecretKeySpec(hashedPassword, algo);
