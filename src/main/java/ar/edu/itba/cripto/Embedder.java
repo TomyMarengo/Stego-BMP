@@ -102,7 +102,7 @@ public class Embedder extends Operator {
     }
 
     private byte[] embedLSBI(byte[] image, byte[] data) {
-        int offset = SteganographyUtil.HEADER_SIZE;;
+        int offset = SteganographyUtil.HEADER_SIZE + 4;
         // Pattern counters
         Map<Integer, Integer> changeCount = new HashMap<>();
         Map<Integer, Integer> noChangeCount = new HashMap<>();
@@ -132,7 +132,6 @@ public class Embedder extends Operator {
                     } else {
                         noChangeCount.put(patternBits, noChangeCount.get(patternBits) + 1);
                     }
-                    System.out.println(offset);
                 } else {
                     bit++;
                 }
@@ -142,29 +141,35 @@ public class Embedder extends Operator {
         }
 
         // Second pass: Invert least significant bits where necessary
-        offset = SteganographyUtil.HEADER_SIZE;;
+        offset = SteganographyUtil.HEADER_SIZE + 4;
         for (byte b : data) {
             for (int bit = 7; bit >= 0; bit--) {
-                int currentByte = image[offset] & 0xFF;
+                if ((offset + 1) % 3 != 0) { // Skip the LSB of the red channel
+                    int currentByte = image[offset] & 0xFF;
 
-                // Get the pattern of the 2 least significant bits
-                int patternBits = (currentByte >> 1) & 0x03;
+                    // Get the pattern of the 2 least significant bits
+                    int patternBits = (currentByte >> 1) & 0x03;
 
-                // Invert the least significant bit if there are more changes than no changes
-                if (changeCount.get(patternBits) > noChangeCount.get(patternBits)) {
-                    image[offset] ^= 1; // Invert the least significant bit
+                    // Invert the least significant bit if there are more changes than no changes
+                    if (changeCount.get(patternBits) > noChangeCount.get(patternBits)) {
+                        image[offset] ^= 1; // Invert the least significant bit
+                    }
+                }
+                else {
+                    bit++;
                 }
 
                 offset++;
             }
         }
 
-        // Update the last 4 bytes to indicate which patterns changed and which did not
+        // Update the first 4 bytes to indicate which patterns changed and which did not
+        offset = SteganographyUtil.HEADER_SIZE;
         for (int pattern : patterns) {
             int changed = changeCount.get(pattern);
             int notChanged = noChangeCount.get(pattern);
-
             image[offset] = (byte) (changed > notChanged ? (image[offset] | 0x01) : (image[offset] & 0xFE));
+            System.out.println("Pattern " + Integer.toBinaryString(pattern) + ": " + changed + " changes, " + notChanged + " no changes");
             offset++;
         }
 

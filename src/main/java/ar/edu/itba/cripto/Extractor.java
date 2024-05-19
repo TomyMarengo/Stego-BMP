@@ -3,7 +3,9 @@ package ar.edu.itba.cripto;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Extractor extends Operator {
     private static final int LENGTH_OFFSET_LSBI = 8 * (4 + 2);
@@ -52,7 +54,6 @@ public class Extractor extends Operator {
                 | ((data[2] & 0xFF) << 8)
                 | (data[3] & 0xFF);
 
-        System.out.println("Data length: " + dataLength);
         // Extract the file extension and file data
         int extensionStart = 4 + dataLength;
         int extensionEnd = extensionStart;
@@ -106,65 +107,98 @@ public class Extractor extends Operator {
     }
 
     private byte[] extractLSBI(byte[] image) {
+        // Recover the patterns stored in the last 4 bytes of the BGR pixels
         int offset = SteganographyUtil.HEADER_SIZE;
-        int dataLength = 0;
+        int[] patterns = new int[4];
+        for (int i = 0; i < 4; i++) {
+            patterns[i] = image[offset] & 1;
+            offset++;
+        }
 
         // Extract the data length
-        for (int i = 0; i < 4; i++) {
-            if ((offset - SteganographyUtil.HEADER_SIZE) % 3 != 0) { // Skip the LSB of the red channel
-                dataLength = (dataLength << 8) | (image[offset] & 1);
+        int dataLength = 0;
+        for (int i = 0; i < 32; i++) { // 32 bits = 4 bytes
+            if ((offset + 1) % 3 != 0) { // Skip the LSB of the red channel
+                int currentByte = image[offset] & 0xFF;
+                int patternBits = (currentByte >> 1) & 0x03;
+                int lsb = currentByte & 1;
+
+                if (patterns[patternBits] == 1) {
+                    lsb ^= 1; // Invert the LSB if the pattern has a 1
+                }
+
+                dataLength = (dataLength << 1) | lsb;
+            } else {
+                i--;
             }
             offset++;
         }
-        System.out.println("Data length: " + dataLength);
 
-        int extensionOffset = SteganographyUtil.HEADER_SIZE + LENGTH_OFFSET_LSBI + (dataLength * 8 + (dataLength * 8 / 2));
-        int extensionLength = 0;
-        System.out.println("Extension offset: " + extensionOffset);
-
-
-        //todo: parsear la extension
-
-        System.out.println("Extension length: " + extensionLength);
-
-        StringBuilder extensionBuilder = new StringBuilder();
-        for (int i = 0; i < extensionLength; i++) {
-            byte currentByte = image[extensionOffset + i];
-            extensionBuilder.append((char) currentByte);
-        }
-        String extension = extensionBuilder.toString();
-        System.out.println("Extension: " + extension);
-
-        // Recover the patterns stored in the last 4 bytes of the BGR pixels
-        int[] patterns = new int[4];
-        int patternsOffset = SteganographyUtil.HEADER_SIZE + (dataLength * 8 + (dataLength * 8 / 2)) - 1;
-        for (int i = 0; i < 4; i++) {
-            patterns[i] = image[patternsOffset] & 1;
-            patternsOffset++;
-        }
-        System.out.println("Patterns: " + Arrays.toString(patterns));
-
-        offset = SteganographyUtil.HEADER_SIZE + 4; // Skip the data length
+        // Extract the data
         byte[] extractedData = new byte[dataLength];
         for (int i = 0; i < dataLength; i++) {
             extractedData[i] = 0;
             for (int bit = 7; bit >= 0; bit--) {
-                if ((offset - SteganographyUtil.HEADER_SIZE) % 3 != 0) { // Skip the LSB of the red channel
+                if ((offset + 1) % 3 != 0) { // Skip the LSB of the red channel
                     int currentByte = image[offset] & 0xFF;
                     int patternBits = (currentByte >> 1) & 0x03;
                     int lsb = currentByte & 1;
 
                     if (patterns[patternBits] == 1) {
-                        lsb ^= 1; // Invertir el LSB si el patrón tiene un 1
+                        lsb ^= 1; // Invert the LSB if the pattern has a 1
                     }
-
                     extractedData[i] |= (byte) (lsb << bit);
+                } else {
+                    bit++;
                 }
                 offset++;
             }
         }
 
-        System.out.println("Extracted data: " + new String(extractedData, StandardCharsets.UTF_8));
-        return extractedData;
+        // Extract the file extension, checking inverted LSB patterns
+        List<Byte> extensionBytes = new ArrayList<>();
+        boolean zeroNotFound = true;
+        byte currentByte = 0;
+        int bitIndex = 7;
+
+        while (zeroNotFound) {
+            if ((offset + 1) % 3 != 0) { // Skip the LSB of the red channel
+                int pixelByte = image[offset] & 0xFF;
+                int patternBits = (pixelByte >> 1) & 0x03;
+                int lsb = pixelByte & 1;
+
+                if (patterns[patternBits] == 1) {
+                    lsb ^= 1; // Invert the LSB if the pattern has a 1
+                }
+
+                currentByte |= (byte) (lsb << bitIndex);
+                bitIndex--;
+
+                if (bitIndex < 0) {
+                    extensionBytes.add(currentByte);
+                    if (currentByte == 0) {
+                        zeroNotFound = false;
+                    }
+                    currentByte = 0;
+                    bitIndex = 7;
+                }
+            }
+            offset++;
+        }
+
+        // Convert the extension bytes to a character string
+        byte[] extensionArray = new byte[extensionBytes.size()];
+        for (int i = 0; i < extensionArray.length; i++) {
+            extensionArray[i] = extensionBytes.get(i);
+        }
+        /* returnData array with length || data || extension */
+        byte[] returnData = new byte[4 + dataLength + extensionArray.length];
+        returnData[0] = (byte) (dataLength >> 24);
+        returnData[1] = (byte) (dataLength >> 16);
+        returnData[2] = (byte) (dataLength >> 8);
+        returnData[3] = (byte) dataLength;
+        System.arraycopy(extractedData, 0, returnData, 4, dataLength);
+        System.arraycopy(extensionArray, 0, returnData, 4 + dataLength, extensionArray.length);
+        return returnData;
     }
 }
