@@ -46,18 +46,19 @@ public class Embedder extends Operator {
         if (password != null && !password.isEmpty()) {
             System.out.println("(EMBED) Encrypting...");
             dataToHide = SteganographyUtil.encrypt(dataToHide, algorithm, mode, password);
-            // Extract IV length from first 4 bytes
-            int ivLength = (dataToHide[0] << 24) | (dataToHide[1] << 16) | (dataToHide[2] << 8) | dataToHide[3];
+
 
             // add cypher text length to the beginning of the data
             byte[] dataToHideWithLength = new byte[dataToHide.length + 4];
-            int cypherLength = dataToHide.length - ivLength - 4;
-            dataToHideWithLength[0] = (byte) (cypherLength >> 24);
-            dataToHideWithLength[1] = (byte) (cypherLength >> 16);
-            dataToHideWithLength[2] = (byte) (cypherLength >> 8);
-            dataToHideWithLength[3] = (byte) (cypherLength);
+            dataToHideWithLength[0] = (byte) (dataToHide.length >> 24);
+            dataToHideWithLength[1] = (byte) (dataToHide.length >> 16);
+            dataToHideWithLength[2] = (byte) (dataToHide.length >> 8);
+            dataToHideWithLength[3] = (byte) (dataToHide.length);
             System.arraycopy(dataToHide, 0, dataToHideWithLength, 4, dataToHide.length);
             dataToHide = Arrays.copyOf(dataToHideWithLength, dataToHideWithLength.length);
+
+            System.out.println("(EMBED) Encrypted data length: " + dataToHide.length);
+            System.out.println("(EMBED) Encrypted data: " + Arrays.toString(dataToHide));
         }
 
         System.out.println("(EMBED) Embedding...");

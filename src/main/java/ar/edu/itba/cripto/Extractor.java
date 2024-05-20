@@ -25,23 +25,16 @@ public class Extractor extends Operator {
         if (password != null && !password.isEmpty()) {
             System.out.println("(EXTRACT) Extracting cypher data...");
 
-            byte[] cipherData = switch (stegMethod) { // cypherLength || ivLength || IV || cypherData = (length || data || extension)
+            byte[] cipherData = switch (stegMethod) { // cypherLength || cipherData = (length || data || extension)
                 case "LSB1" -> extractLSB1(bmpBytes, true);
                 case "LSB4" -> extractLSB4(bmpBytes, true);
                 case "LSBI" -> extractLSBI(bmpBytes, true);
                 default -> throw new IllegalArgumentException("Invalid steganography method: " + stegMethod);
             };
 
-            //Extract iv, cypherData has ivLength in second first 4 bytes, then IV in the following ivLength bytes
-            int ivLength = ((cipherData[4] & 0xFF) << 24)
-                    | ((cipherData[5] & 0xFF) << 16)
-                    | ((cipherData[6] & 0xFF) << 8)
-                    | (cipherData[7] & 0xFF);
-
-            byte[] iv = Arrays.copyOfRange(cipherData, 8, 8 + ivLength);
-            byte[] dataToDecrypt = Arrays.copyOfRange(cipherData, 8 + ivLength, cipherData.length); // cypherData finish before LBSI patterns
+            byte[] dataToDecrypt = Arrays.copyOfRange(cipherData, 4, cipherData.length);
             System.out.println("(EXTRACT) Decrypting...");
-            data = SteganographyUtil.decrypt(dataToDecrypt, algorithm, mode, password, iv); // length || data || extension
+            data = SteganographyUtil.decrypt(dataToDecrypt, algorithm, mode, password); // length || data || extension
         } else {
             System.out.println("(EXTRACT) Extracting plain data...");
 
@@ -84,22 +77,10 @@ public class Extractor extends Operator {
             offset++;
         }
 
-        // Extract the IV length
-        int ivLength = 0;
-        if (encrypted) {
-            for (int i = 0; i < IV_LENGTH_SIZE * 8; i++) { // Next 4 bytes are the IV length
-                ivLength = (ivLength << 1) | (image[offset] & 1);
-                offset++;
-            }
-        }
-
         // Calculate the total length of the data
         int bytesLength = DATA_LENGTH_SIZE + dataLength;
-        if (encrypted) {
-            bytesLength += IV_LENGTH_SIZE + ivLength;
-        }
 
-        // Extract [cypherLength || ivLength || IV || cypherData = (length || data || extension)] or [length || data]
+        // Extract [cypherLength || cypherData] or [length || data]
         byte[] extractedData = new byte[bytesLength];
         offset = SteganographyUtil.HEADER_SIZE;
         for (int i = 0; i < bytesLength; i++) {
@@ -155,23 +136,10 @@ public class Extractor extends Operator {
             offset++;
         }
 
-        // Extract the IV length
-        int ivLength = 0;
-        if (encrypted) {
-            for (int i = 0; i < IV_LENGTH_SIZE * 2; i++) { // IV length (4 bits per iteration)
-                int nibble = (image[offset] & 0x0F); // Get the last 4 bits
-                ivLength = (ivLength << 4) | nibble; // Shift left by 4 bits and add the nibble
-                offset++;
-            }
-        }
-
         // Calculate the total length of the data
         int bytesLength = DATA_LENGTH_SIZE + dataLength;
-        if (encrypted) {
-            bytesLength += + IV_LENGTH_SIZE + ivLength;
-        }
 
-        // Extract [cypherLength || ivLength || IV || cypherData = (length || data || extension)] or [length || data]
+        // Extract [cypherLength || cypherData] or [length || data]
         byte[] extractedData = new byte[bytesLength];
         offset = SteganographyUtil.HEADER_SIZE;
         for (int i = 0; i < bytesLength; i++) {
@@ -244,34 +212,11 @@ public class Extractor extends Operator {
             offset++;
         }
 
-        // Extract the IV length
-        int ivLength = 0;
-        if (encrypted) {
-            for (int i = 0; i < IV_LENGTH_SIZE * 8; i++) { // IV length
-                if ((offset + 1) % 3 != 0) { // Skip the LSB of the red channel
-                    int currentByte = image[offset] & 0xFF;
-                    int patternBits = (currentByte >> 1) & 0x03;
-                    int lsb = currentByte & 1;
-
-                    if (patterns[patternBits] == 1) {
-                        lsb ^= 1; // Invert the LSB if the pattern has a 1
-                    }
-
-                    ivLength = (ivLength << 1) | lsb;
-                } else {
-                    i--;
-                }
-                offset++;
-            }
-        }
 
         // Calculate the total length of the data
         int bytesLength = DATA_LENGTH_SIZE + dataLength;
-        if (encrypted) {
-            bytesLength += IV_LENGTH_SIZE + ivLength;
-        }
 
-        // Extract [cypherLength || ivLength || IV || cypherData = (length || data || extension)] or [length || data]
+        // Extract [cypherLength || cypherData] or [length || data]
         byte[] extractedData = new byte[bytesLength];
         offset = SteganographyUtil.HEADER_SIZE + PATTERN_SIZE;
         for (int i = 0; i < bytesLength; i++) {
