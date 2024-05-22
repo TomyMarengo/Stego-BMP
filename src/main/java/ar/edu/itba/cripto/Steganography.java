@@ -5,6 +5,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Steganography {
+    private static final String MESSAGES_FOLDER = "src/main/resources/messages/";
+    private static final String COVERS_FOLDER = "src/main/resources/covers/";
+    private static final String OUTPUTS_FOLDER = "src/main/resources/outputs/";
+    private static final String EXRACTED_FOLDER = "src/main/resources/extracted/";
+
     public static void main(String[] args) {
         if (args.length == 0) {
             System.out.println("No arguments provided");

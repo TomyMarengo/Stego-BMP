@@ -1,0 +1,141 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{caption}
+\usepackage{amsfonts, amsmath, amssymb, enumitem, authblk, times, amsmath, graphicx, placeins, indentfirst, pdfpages, fancyhdr, titling, listings} 
+\usepackage[justification=centering]{caption}
+\setlength{\textwidth}{180mm}
+\setlength{\textheight}{250mm}
+\setlength{\oddsidemargin}{-10mm}
+\setlength{\evensidemargin}{15mm}
+\setlength{\topmargin}{-10mm}
+
+\renewcommand{\baselinestretch}{1.4}
+\renewcommand{\headrulewidth}{0.5pt}
+
+\lhead{\begin{picture}(0,0) \put(0,0){\includegraphics[width=20mm]{./LogoITBA}} \end{picture}}
+\renewcommand{\headrulewidth}{0.5pt}
+
+
+\pagestyle{fancy}
+
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		{\includegraphics[width=0.50\textwidth]{LogoITBA}\par}
+		{\bfseries\LARGE Instituto Tecnol\'ogico de Buenos Aires \par}
+		\vspace{2cm}
+		{\scshape\Huge StegoBMP \par}
+		\vspace{1cm}
+		{\itshape\Large 72.44 Criptografía y Seguridad - 2024Q1 \par}
+		\vspace{3cm}
+		{\Large Tom\'as Marengo - 61587 \par}
+		{\Large tmarengo@itba.edu.ar \par}	
+		\vfill
+	\end{titlepage}
+	
+	\newpage
+	\tableofcontents
+	\newpage
+	
+	\section{Introducción}
+	La esteganografía es la práctica de ocultar información dentro de otro objeto, de manera que su existencia no sea perceptible a simple vista. A lo largo de la historia, se han utilizado diversas técnicas esteganográficas para proteger la confidencialidad de la información. En el contexto digital, una de las técnicas más comunes consiste en ocultar datos en archivos de imagen modificando sus bits menos significativos (LSB, por sus siglas en inglés).
+	
+	Este trabajo práctico tiene como objetivo implementar y probar un sistema de esteganografía digital utilizando diferentes métodos de inserción en los bits menos significativos de imágenes BMP. Además, se exploran técnicas de cifrado para proteger la información antes de ocultarla, garantizando así una capa adicional de seguridad. El objetivo es garantizar que la información sea indetectable y, en caso de ser descubierta, inaccesible sin la clave adecuada.
+
+	\section{Diseño del sistema}
+	
+	El sistema está diseñado en una arquitectura modular que consta de las siguientes partes:
+	
+	\begin{itemize}
+		\item \textbf{Operator:} Clase base que contiene los parámetros comunes a las operaciones de ocultamiento y extracción.
+		\item \textbf{Embedder:} Clase derivada de Operator, responsable del ocultamiento de datos en una imagen BMP.
+		\item \textbf{Extractor:} Clase derivada de Operator, responsable de la extracción de datos de una imagen BMP.
+		\item \textbf{SteganographyUtil:} Contiene métodos estáticos para la encriptación y desencriptación de datos, así como constantes utilizadas en todo el sistema.
+		\item \textbf{Steganography:} Punto de entrada del programa que parsea los argumentos de la línea de comandos y coordina las operaciones de ocultamiento y extracción.
+	\end{itemize}
+
+	\newpage
+
+	\section{Stegoanálisis de los archivos provistos}
+	
+	
+	\newpage
+	
+	\section{Cuestiones a Analizar}
+	
+	\begin{itemize}
+		\item \textit{Discutir los siguientes aspectos relativos al documento.}
+		\begin{itemize}
+			\item \textit{a) Organización formal del documento:}
+			\begin{itemize}
+				\item \textbf{Respuesta:} 
+			\end{itemize}
+			
+			\item \textit{b) La descripción del algoritmo:}
+			\begin{itemize}
+				\item \textbf{Respuesta:} 
+			\end{itemize}
+			
+			\item \textit{c) La notación utilizada, ¿es clara? ¿hay algún error o contradicción?}
+			\begin{itemize}
+				\item \textbf{Respuesta:} 
+			\end{itemize}
+		\end{itemize}
+		
+		\item \textit{Esteganografiar un mismo archivo en un .bmp con cada uno de los tres algoritmos, y comparar los resultados obtenidos. Hacer un cuadro comparativo de los tres algoritmos estableciendo ventajas y desventajas.}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+		
+		\item \textit{Explicar detalladamente el procedimiento realizado para descubrir qué se había ocultado en cada archivo y de qué modo. Indicar qué se encontró en cada archivo.}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+		
+		\item \textit{Algunos mensajes ocultos tenían, a su vez, otros mensajes ocultos. Indica cuál era ese mensaje y cómo se había ocultado.}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+		
+		\item \textit{Uno de los archivos ocultos era una porción de un video de una película, donde se ve ejemplificado una manera de ocultar información. ¿Qué se ocultaba y sobre qué portador?}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+		
+		\item \textit{¿De qué se trató el método de esteganografiado que no era LSB1 ni LSB4 ni LSBI? ¿Es un método eficaz? ¿Por qué?}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+		
+		\item \textit{¿Por qué la propuesta del documento de Majeed y Sulaiman es realmente una mejora respecto de LSB común?}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+		
+		\item \textit{En la implementación se optó por guardar los patrones invertidos al final del mensaje. ¿Es esta una opción más segura que guardarlos antes del mensaje? ¿Por qué?}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+		
+		\item \textit{¿De qué otra manera o en qué otro lugar podría guardarse el registro de los patrones invertidos?}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+		
+		\item \textit{¿Qué dificultades encontraron en la implementación del algoritmo del paper?}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+		
+		\item \textit{¿Qué mejoras o futuras extensiones harías al programa stegobmp?}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+	\end{itemize}
+	
+
+\end{document}
