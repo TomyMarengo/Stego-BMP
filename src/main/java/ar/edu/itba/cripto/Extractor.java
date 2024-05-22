@@ -26,9 +26,9 @@ public class Extractor extends Operator {
             System.out.println("(EXTRACT) Extracting cypher data...");
 
             byte[] cipherData = switch (stegMethod) { // cypherLength || cipherData = (length || data || extension)
-                case "LSB1" -> extractLSB1(bmpBytes, true);
-                case "LSB4" -> extractLSB4(bmpBytes, true);
-                case "LSBI" -> extractLSBI(bmpBytes, true);
+                case "lsb1" -> extractLSB1(bmpBytes, true);
+                case "lsb4" -> extractLSB4(bmpBytes, true);
+                case "lsbi" -> extractLSBI(bmpBytes, true);
                 default -> throw new IllegalArgumentException("Invalid steganography method: " + stegMethod);
             };
 
@@ -39,9 +39,9 @@ public class Extractor extends Operator {
             System.out.println("(EXTRACT) Extracting plain data...");
 
             data = switch (stegMethod) { // length || data || extension
-                case "LSB1" -> extractLSB1(bmpBytes, false);
-                case "LSB4" -> extractLSB4(bmpBytes, false);
-                case "LSBI" -> extractLSBI(bmpBytes, false);
+                case "lsb1" -> extractLSB1(bmpBytes, false);
+                case "lsb4" -> extractLSB4(bmpBytes, false);
+                case "lsbi" -> extractLSBI(bmpBytes, false);
                 default -> throw new IllegalArgumentException("Invalid steganography method: " + stegMethod);
             };
         }

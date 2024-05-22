@@ -5,10 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Steganography {
-    private static final String MESSAGES_FOLDER = "src/main/resources/messages/";
-    private static final String COVERS_FOLDER = "src/main/resources/covers/";
-    private static final String OUTPUTS_FOLDER = "src/main/resources/outputs/";
-    private static final String EXRACTED_FOLDER = "src/main/resources/extracted/";
 
     public static void main(String[] args) {
         if (args.length == 0) {
@@ -73,7 +69,7 @@ public class Steganography {
         Map<String, String> params = new HashMap<>();
         for (int i = 0; i < args.length; i++) {
             if (args[i].startsWith("-") && i + 1 < args.length && !args[i + 1].startsWith("-")) {
-                params.put(args[i], args[i + 1]);
+                params.put(args[i], args[i + 1].toLowerCase());
                 i++;
             } else if (args[i].startsWith("-")) {
                 params.put(args[i], null);

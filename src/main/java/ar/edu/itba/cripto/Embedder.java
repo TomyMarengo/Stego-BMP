@@ -63,9 +63,9 @@ public class Embedder extends Operator {
 
         System.out.println("(EMBED) Embedding...");
         byte[] stegoImage = switch (stegMethod) {
-            case "LSB1" -> embedLSB1(bmpBytes, dataToHide);
-            case "LSB4" -> embedLSB4(bmpBytes, dataToHide);
-            case "LSBI" -> embedLSBI(bmpBytes, dataToHide);
+            case "lsb1" -> embedLSB1(bmpBytes, dataToHide);
+            case "lsb4" -> embedLSB4(bmpBytes, dataToHide);
+            case "lsbi" -> embedLSBI(bmpBytes, dataToHide);
             default -> throw new IllegalArgumentException("Invalid steganography method: " + stegMethod);
         };
 

@@ -51,13 +51,25 @@ Siempre se debe especificar una contraseña para cifrar/descifrar el archivo.
 Para ocultar un archivo en una imagen BMP utilizando el algoritmo LSB1 sin cifrado:
 
 ```bash
-java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -embed -in archivo.txt -p imagen.bmp -out imagen_con_texto.bmp -steg LSB1
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -embed -in ./src/main/resources/messages/hello.txt -p ./src/main/resources/covers/tricolor.bmp -out imagen_con_texto.bmp -steg LSB1
 ```
 
-Para extraer un archivo de una imagen BMP utilizando el algoritmo LSB4 con cifrado AES256 y modo OFB:
+Para extraer ese archivo de la imagen BMP:
 
 ```bash
-java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p imagen_con_texto.bmp -out archivo_recuperado.txt -steg LSB4 -a aes256 -m ofb -pass contraseña
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p imagen_con_texto.bmp -out mensaje_extraido -steg LSB1
+```
+
+Para ocultarlo utilizando el algoritmo LSB4 con cifrado AES256 y modo OFB:
+
+```bash
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -embed -in ./src/main/resources/messages/hello.txt -p ./src/main/resources/covers/tricolor.bmp -out imagen_con_texto_cifrado.bmp -steg LSB4 -a aes256 -m ofb -pass secreto
+```
+
+Para extraerlo de la imagen BMP:
+
+```bash
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p imagen_con_texto_cifrado.bmp -out mensaje_descifrado_extraido -steg LSB4 -a aes256 -m ofb -pass secreto
 ```
 
 ## Licencia
