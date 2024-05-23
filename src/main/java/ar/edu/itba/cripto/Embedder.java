@@ -1,7 +1,6 @@
 package ar.edu.itba.cripto;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -81,6 +80,13 @@ public class Embedder extends Operator {
     }
 
     private byte[] embedLSB1(byte[] image, byte[] data) {
+        /* Check if the image is large enough to hold the data */
+        int imageSize = image.length - SteganographyUtil.HEADER_SIZE;
+        int dataSize = data.length * 8;
+        if (dataSize > imageSize) {
+            throw new IllegalArgumentException("Data is too large to be embedded in the image using LSB1, maximum size is " + imageSize / 8 + " bytes");
+        }
+
         int offset = SteganographyUtil.HEADER_SIZE;
         for (byte b : data) {
             for (int bit = 7; bit >= 0; bit--) {
@@ -93,6 +99,13 @@ public class Embedder extends Operator {
     }
 
     private byte[] embedLSB4(byte[] image, byte[] data) {
+        /* Check if the image is large enough to hold the data */
+        int imageSize = image.length - SteganographyUtil.HEADER_SIZE;
+        int dataSize = data.length * 2;
+        if (dataSize > imageSize) {
+            throw new IllegalArgumentException("Data is too large to be embedded in the image using LSB4, maximum size is " + imageSize / 2 + " bytes");
+        }
+
         int offset = SteganographyUtil.HEADER_SIZE;;
         for (byte b : data) {
             for (int nibble = 1; nibble >= 0; nibble--) {
@@ -105,6 +118,16 @@ public class Embedder extends Operator {
     }
 
     private byte[] embedLSBI(byte[] image, byte[] data) {
+        /* Check if the image is large enough to hold the data */
+        int imageSize = image.length - SteganographyUtil.HEADER_SIZE;
+        int bytesBlueAndGreen = 2 * imageSize / 3;
+        int availableBytes = bytesBlueAndGreen + 1; // Red channel used in patterns
+        int dataSize = data.length * 8;
+        if (dataSize > availableBytes) {
+            throw new IllegalArgumentException("Data is too large to be embedded in the image using LSBI, maximum size is " + availableBytes + " bytes");
+        }
+
+
         int offset = SteganographyUtil.HEADER_SIZE + 4;
         // Pattern counters
         Map<Integer, Integer> changeCount = new HashMap<>();
