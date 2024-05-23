@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.12)  21 MAY 2024 23:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.12)  23 MAY 2024 01:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -313,56 +313,66 @@ File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
 File: listings.cfg 2020/03/24 1.8d listings configuration
 ))
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
-LaTeX Font Info:    Trying to load font information for T1+ptm on input line 24
+(C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count295
+\float@exts=\toks30
+\float@box=\box58
+\@float@everytoks=\toks31
+\@floatcapt=\box59
+)
+LaTeX Font Info:    Trying to load font information for T1+ptm on input line 28
 .
+
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count295
-\l__pdf_internal_box=\box58
+\l__color_backend_stack_int=\count296
+\l__pdf_internal_box=\box60
 ) (informe.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 )
 \openout1 = `informe.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Info: Redefining \. on input line 24.
-LaTeX Info: Redefining \% on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Info: Redefining \. on input line 28.
+LaTeX Info: Redefining \% on input line 28.
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count296
+\scratchcounter=\count297
 \scratchdimen=\dimen171
-\scratchbox=\box59
-\nofMPsegments=\count297
-\nofMParguments=\count298
-\everyMPshowfont=\toks30
-\MPscratchCnt=\count299
+\scratchbox=\box61
+\nofMPsegments=\count298
+\nofMParguments=\count299
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count300
 \MPscratchDim=\dimen172
-\MPnumerator=\count300
-\makeMPintoPDFobject=\count301
-\everyMPtoPDFconversion=\toks31
+\MPnumerator=\count301
+\makeMPintoPDFobject=\count302
+\everyMPtoPDFconversion=\toks33
 )
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -384,11 +394,11 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-\c@lstlisting=\count302
+\c@lstlisting=\count303
 <LogoITBA.png, id=1, 564.1878pt x 277.035pt>
 File: LogoITBA.png Graphic file (type png)
 <use LogoITBA.png>
-Package pdftex.def Info: LogoITBA.png  used on input line 28.
+Package pdftex.def Info: LogoITBA.png  used on input line 32.
 (pdftex.def)             Requested size: 256.0748pt x 125.74675pt.
 
 [1
@@ -404,10 +414,10 @@ LaTeX Info: Redefining \% on input line 1.
 <./LogoITBA.png, id=11, 564.1878pt x 277.035pt>
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 42.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 46.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 42.
-LaTeX Info: Redefining \% on input line 42.
+LaTeX Info: Redefining \. on input line 46.
+LaTeX Info: Redefining \% on input line 46.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -420,10 +430,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [1 <./LogoITBA.png>]
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 61.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 65.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 61.
-LaTeX Info: Redefining \% on input line 61.
+LaTeX Info: Redefining \. on input line 65.
+LaTeX Info: Redefining \% on input line 65.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -436,10 +446,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [2]
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 66.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 70.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 66.
-LaTeX Info: Redefining \% on input line 66.
+LaTeX Info: Redefining \. on input line 70.
+LaTeX Info: Redefining \% on input line 70.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -451,28 +461,65 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 [3]
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 7
-3.
+7.
  (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 75.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
 
 
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 75.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
 
 
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+<tricolor_lsb1.png, id=23, 601.4972pt x 584.93532pt>
+File: tricolor_lsb1.png Graphic file (type png)
+<use tricolor_lsb1.png>
+Package pdftex.def Info: tricolor_lsb1.png  used on input line 100.
+(pdftex.def)             Requested size: 256.0748pt x 249.0271pt.
+<tricolor_lsb4.png, id=24, 597.73312pt x 585.68813pt>
+File: tricolor_lsb4.png Graphic file (type png)
+<use tricolor_lsb4.png>
+Package pdftex.def Info: tricolor_lsb4.png  used on input line 106.
+(pdftex.def)             Requested size: 256.0748pt x 250.91154pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<tricolor_lsbi.png, id=25, 599.99156pt x 585.68813pt>
+File: tricolor_lsbi.png Graphic file (type png)
+<use tricolor_lsbi.png>
+Package pdftex.def Info: tricolor_lsbi.png  used on input line 112.
+(pdftex.def)             Requested size: 256.0748pt x 249.97318pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 121.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 118.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 121.
-LaTeX Info: Redefining \% on input line 121.
+LaTeX Info: Redefining \. on input line 118.
+LaTeX Info: Redefining \% on input line 118.
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[4 <./tricolor_lsb1.png>]
+File: ./LogoITBA.png Graphic file (type png)
+<use ./LogoITBA.png>
+Package pdftex.def Info: ./LogoITBA.png  used on input line 161.
+(pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
+LaTeX Info: Redefining \. on input line 161.
+LaTeX Info: Redefining \% on input line 161.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -482,13 +529,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[4]
+[5 <./tricolor_lsb4.png> <./tricolor_lsbi.png>]
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 141.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 186.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 141.
-LaTeX Info: Redefining \% on input line 141.
+LaTeX Info: Redefining \. on input line 186.
+LaTeX Info: Redefining \% on input line 186.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -498,18 +545,50 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[5] (informe.aux
+[6]
+File: ./LogoITBA.png Graphic file (type png)
+<use ./LogoITBA.png>
+Package pdftex.def Info: ./LogoITBA.png  used on input line 207.
+(pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
+LaTeX Info: Redefining \. on input line 207.
+LaTeX Info: Redefining \% on input line 207.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[7]
+File: ./LogoITBA.png Graphic file (type png)
+<use ./LogoITBA.png>
+Package pdftex.def Info: ./LogoITBA.png  used on input line 211.
+(pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
+LaTeX Info: Redefining \. on input line 211.
+LaTeX Info: Redefining \% on input line 211.
+
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 14.49998pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.49998pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
+
+[8] (informe.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 ) ) 
 Here is how much of TeX's memory you used:
- 9151 strings out of 478338
- 147180 string characters out of 2836699
- 453844 words of memory out of 3000000
- 27447 multiletter control sequences out of 15000+600000
+ 9252 strings out of 478338
+ 148984 string characters out of 2836699
+ 458415 words of memory out of 3000000
+ 27541 multiletter control sequences out of 15000+600000
  507750 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,18n,75p,505b,623s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 63i,18n,75p,706b,641s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C
 :/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
 10.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb
@@ -517,9 +596,9 @@ Here is how much of TeX's memory you used:
 8a.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr
 8a.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr
 i8a.pfb>
-Output written on informe.pdf (6 pages, 153961 bytes).
+Output written on informe.pdf (9 pages, 189188 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
+ 69 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,6 +1,4 @@
 import ar.edu.itba.cripto.Steganography;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -13,8 +11,10 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class StegranographyTest {
-    private final Path inputFile = Paths.get("src", "main", "resources", "messages", "hello.txt");
-    private final Path coverFile = Paths.get("src", "main", "resources", "covers", "all_gray.bmp");
+    private final String bmpName = "tricolor";
+    private final String messageName = "hello";
+    private final Path inputFile = Paths.get("src", "main", "resources", "messages", messageName + ".txt");
+    private final Path coverFile = Paths.get("src", "main", "resources", "covers", bmpName + ".bmp");
 
     @ParameterizedTest
     @MethodSource("provideParameters")
@@ -23,17 +23,17 @@ public class StegranographyTest {
         Path extractedFile;
 
         if (encrypt) {
-            stegoFile = Paths.get("src", "main", "resources", "outputs", "all_gray-" + steg + "-" + algorithm + "-" + mode + ".bmp");
-            extractedFile = Paths.get("src", "main", "resources", "extracted", "extracted-hello-" + steg + "-" + algorithm + "-" + mode);
+            stegoFile = Paths.get("src", "main", "resources", "outputs", bmpName + "-" + steg + "-" + algorithm + "-" + mode + ".bmp");
+            extractedFile = Paths.get("src", "main", "resources", "extracted", "extracted-" + messageName + "-" + steg + "-" + algorithm + "-" + mode);
         } else {
-            stegoFile = Paths.get("src", "main", "resources", "outputs", "all_gray-" + steg + ".bmp");
-            extractedFile = Paths.get("src", "main", "resources", "extracted", "extracted-hello-" + steg);
+            stegoFile = Paths.get("src", "main", "resources", "outputs", bmpName + "-" + steg + ".bmp");
+            extractedFile = Paths.get("src", "main", "resources", "extracted", "extracted-" + messageName + "-" + steg);
         }
 
         // Embed the file
         String[] embedParams;
         if (encrypt) {
-            embedParams = new String[]{"-embed", "-in", inputFile.toString(), "-p", coverFile.toString(), "-out", stegoFile.toString(), "-steg", steg, "-a", algorithm, "-m", mode, "-pass", "hola"};
+            embedParams = new String[]{"-embed", "-in", inputFile.toString(), "-p", coverFile.toString(), "-out", stegoFile.toString(), "-steg", steg, "-a", algorithm, "-m", mode, "-pass", "password"};
         } else {
             embedParams = new String[]{"-embed", "-in", inputFile.toString(), "-p", coverFile.toString(), "-out", stegoFile.toString(), "-steg", steg};
         }
@@ -42,7 +42,7 @@ public class StegranographyTest {
         // Extract the file
         String[] extractParams;
         if (encrypt) {
-            extractParams = new String[]{"-extract", "-p", stegoFile.toString(), "-out", extractedFile.toString(), "-steg", steg, "-a", algorithm, "-m", mode, "-pass", "hola"};
+            extractParams = new String[]{"-extract", "-p", stegoFile.toString(), "-out", extractedFile.toString(), "-steg", steg, "-a", algorithm, "-m", mode, "-pass", "password"};
         } else {
             extractParams = new String[]{"-extract", "-p", stegoFile.toString(), "-out", extractedFile.toString(), "-steg", steg};
         }
