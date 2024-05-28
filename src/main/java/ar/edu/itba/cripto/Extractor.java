@@ -12,7 +12,7 @@ public class Extractor extends Operator {
     private static final int IV_LENGTH_SIZE = 4;
     private static final int PATTERN_SIZE = 4;
 
-    public Extractor(String outFile, String pBitmapFile, String stegMethod, String algorithm, String mode, String password) {
+    public Extractor(String outFile, String pBitmapFile, String stegMethod, Algorithm algorithm, Mode mode, String password) {
         super(outFile, pBitmapFile, stegMethod, algorithm, mode, password);
     }
 

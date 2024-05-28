@@ -9,7 +9,7 @@ import java.util.Map;
 public class Embedder extends Operator {
     private final String inFilePath;
 
-    public Embedder(String inFile, String outFile, String pBitmapFile, String stegMethod, String algorithm, String mode, String password) {
+    public Embedder(String inFile, String outFile, String pBitmapFile, String stegMethod, Algorithm algorithm, Mode mode, String password) {
         super(outFile, pBitmapFile, stegMethod, algorithm, mode, password);
         this.inFilePath = inFile;
     }

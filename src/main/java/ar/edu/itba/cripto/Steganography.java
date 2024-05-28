@@ -24,9 +24,26 @@ public class Steganography {
         String outFile = params.get("-out");
         String pBitmapFile = params.get("-p");
         String stegMethod = params.get("-steg");
-        String algorithm = params.getOrDefault("-a", "aes128");
-        String mode = params.getOrDefault("-m", "cbc");
+        String algorithmStr = params.getOrDefault("-a", "aes128");
+        String modeStr = params.getOrDefault("-m", "cbc");
         String password = params.get("-pass");
+
+        Algorithm algorithm;
+        Mode mode;
+
+        try {
+            algorithm = Algorithm.fromString(algorithmStr);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
+
+        try {
+            mode = Mode.fromString(modeStr);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return;
+        }
 
         if (pBitmapFile == null) {
             System.out.println("Missing p parameter");

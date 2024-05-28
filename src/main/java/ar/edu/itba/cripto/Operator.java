@@ -4,11 +4,11 @@ public class Operator {
     final String outFilePath;
     final String pBitmapFilePath;
     final String stegMethod;
-    final String algorithm;
-    final String mode;
+    final Algorithm algorithm;
+    final Mode mode;
     final String password;
 
-    public Operator(String outFile, String pBitmapFile, String stegMethod, String algorithm, String mode, String password) {
+    public Operator(String outFile, String pBitmapFile, String stegMethod, Algorithm algorithm, Mode mode, String password) {
         this.outFilePath = outFile;
         this.pBitmapFilePath = pBitmapFile;
         this.stegMethod = stegMethod;
