@@ -1,7 +1,6 @@
 package ar.edu.itba.cripto;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,7 +8,6 @@ import java.util.List;
 
 public class Extractor extends Operator {
     private static final int DATA_LENGTH_SIZE = 4;
-    private static final int IV_LENGTH_SIZE = 4;
     private static final int PATTERN_SIZE = 4;
 
     public Extractor(String outFile, String pBitmapFile, String stegMethod, Algorithm algorithm, Mode mode, String password) {

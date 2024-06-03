@@ -3,9 +3,9 @@ package ar.edu.itba.cripto;
 public enum Mode {
     ECB("ECB", 0),
     CBC("CBC", 128),
-    CFB8("CFB8", 8),
+    CFB8("CFB8", 128),
     CFB("CFB", 128),
-    OFB8("OFB8", 8),
+    OFB8("OFB8", 128),
     OFB("OFB", 128);
 
     private final String modeName;

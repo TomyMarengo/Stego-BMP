@@ -8,7 +8,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Arrays;
 
 public class SteganographyUtil {
-    public static final String PADDING = "NoPadding";
+    public static final String PADDING = "PKCS5Padding";
     public static final int HEADER_SIZE = 54; // BMP header is typically 54 bytes
     // Deterministic salt
     private static final byte[] salt = hexStringToByteArray("0000000000000000");
@@ -52,13 +52,15 @@ public class SteganographyUtil {
     private static KeyAndIV deriveKeyAndIV(Algorithm algorithm, Mode mode, String password) throws Exception {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         int keyBitsLength = algorithm.getKeyBitsLength();
-        int ivBitsLength = mode.getIvBitsLength();
+        // IV length is half the key length for DESede, and the same length for the rest
+        int ivBitsLength = algorithm.getCipherName().equals("DESede") ? mode.getIvBitsLength() / 2 : mode.getIvBitsLength();
         PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt,iterations, keyBitsLength + ivBitsLength);
         byte[] keyAndIVBytes = factory.generateSecret(spec).getEncoded();
 
         // Split the derived bytes into key and IV
         byte[] key = Arrays.copyOfRange(keyAndIVBytes, 0, keyBitsLength / 8);
         byte[] iv = Arrays.copyOfRange(keyAndIVBytes, keyBitsLength / 8, (keyBitsLength + ivBitsLength) / 8);
+
 
         return new KeyAndIV(key, iv);
     }
