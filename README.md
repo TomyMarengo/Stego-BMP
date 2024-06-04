@@ -40,12 +40,16 @@ Las opciones disponibles son:
 - `-out`: Ruta de la imagen BMP de salida.
 - `-steg`: Algoritmo de esteganografía a utilizar (LSB1, LSB4, LSBI).
 - `-a`: Algoritmo de cifrado a utilizar (AES128, AES192, AES256, DES).
-- `-m`: Modo de cifrado a utilizar (CBC, ECB, OFB, CFB).
+- `-m`: Modo de cifrado a utilizar (CBC, ECB, OFB, OFB8, CFB, CFB8).
 - `-pass`: Contraseña para cifrar/descifrar el archivo.
+---
 
-Por defecto, el programa utiliza el algoritmo de cifrado AES128 y el modo de cifrado CBC. 
-Siempre se debe especificar una contraseña para cifrar/descifrar el archivo.
-
+**Algunas consideraciones importantes:**
+* Por defecto, el programa utiliza el algoritmo de cifrado AES128 y el modo de cifrado CBC.
+* Por defecto, OFB y CFB trabajan con bloques de 128 bits.
+* Por defecto, se usa PKCS5Padding para el cifrado.
+* Se utiliza un salt fijo _(0x0000000000000000)_ para el cifrado.
+* Siempre se debe especificar una contraseña para cifrar/descifrar el archivo.
 
 ### Antes de comenzar
 1. En estos casos se usan las carpetas `messages` con el archivo `hello.txt` (archivo a ocultar) y `covers` con la imagen `tricolor.bmp` (imagen portadora) en la carpeta `src/main/resources`.
