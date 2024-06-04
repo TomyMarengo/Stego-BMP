@@ -4,7 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[spanish]{babel}
 \usepackage{caption}
-\usepackage{amsfonts, amsmath, amssymb, enumitem, authblk, times, amsmath, graphicx, placeins, indentfirst, pdfpages, fancyhdr, titling, listings} 
+\usepackage{amsfonts, amsmath, amssymb, enumitem, authblk, times, framed, varwidth, graphicx, placeins, indentfirst, pdfpages, fancyhdr, titling, listings} 
 \usepackage{float}
 \usepackage[justification=centering]{caption}
 \setlength{\textwidth}{180mm}
@@ -66,6 +66,61 @@
 
 	\section{Stegoanálisis de los archivos provistos}
 	
+	\begin{itemize}
+
+		\item \textit{Explicar detalladamente el procedimiento realizado para descubrir qué se había ocultado en cada archivo y de qué modo. Indicar qué se encontró en cada archivo.}
+		\begin{itemize}
+			\item \textbf{Respuesta:} 
+		\end{itemize}
+	
+		De ante mano sabemos que por lo menos hay un archivo esteganografiado por cada método, por lo que primero probé extraer cada archivo con cada método. Dos de ellos no generaron errores de ejecución, porque estaban simplemente esteganografiados sin cifrado:
+		
+		\framebox[10.3cm][c]{-extract -p outputs/kings.bmp -out extracted/ -steg LSB1}
+		
+		\framebox[10.3cm][c]{-extract -p outputs/paris.bmp -out extracted/ -steg LSBI}
+		
+		Esos dos generaron, respectivamente, un archivo .png de un buscaminas y un .pdf con una password (\textit{sorpresa}) a utilizar. El PDF entonces me dijo que uno de los archivos restantes estaba cifrado y por eso me generaba errores de ejecución. Lo que quedaba descubrir era el algoritmo y modo de cifrado utilizado. 
+		
+		Como sabía por el enunciado que uno de los archivos restantes tenía información pertinente, analicé estos con un editor hexadecimal (HxD) y descubrí que \textit{loimposible.bmp} tenía al final de todo la frase \textit{``al .png cambiar extension por .zip y descomprimir''}.
+		
+		Hice eso con el .png del buscaminas y al descomprimir me encontré con unas instrucciones dentro de un .txt que debía aplicar sobre el buscaminas. Haciendo el puzzle obtuve en formato binario:
+		
+		\begin{center}
+				\begin{varwidth}{\linewidth}
+					\begin{verbatim}
+						01000001
+						01100101
+						01110011
+						01000011
+						01100010
+						01100011
+					\end{verbatim}
+				\end{varwidth}
+		\end{center}
+	
+		Es decir, AesCbc. Me quedaba probar entonces la longitud de key usada para AES (128, 196 o 256). Finalmente con:
+		
+		\framebox[16.3cm][c]{-extract -p outputs/lima.bmp -out extracted/ -steg LSB4 -a AES128 -m cbc -pass sorpresa}
+		
+		Obtuve un archivo .wmv con una parte de una película.
+		
+		
+		\item \textit{Algunos mensajes ocultos tenían, a su vez, otros mensajes ocultos. Indica cuál era ese mensaje y cómo se había ocultado.}
+		\begin{itemize}
+			\item \textbf{Respuesta:} Mencionado arriba. La imagen del buscaminas al cambiarle la extensión a zip, ocultaba otra información (las instrucciones para analizar el buscaminas).
+		\end{itemize}
+		
+		\item \textit{Uno de los archivos ocultos era una porción de un video de una película, donde se ve ejemplificado una manera de ocultar información. ¿Qué se ocultaba y sobre qué portador?}
+		\begin{itemize}
+			\item \textbf{Respuesta:} Los métodos de esteganografía que vimos usan los mismos bytes de un archivo para ocultar información. En el video, por otra parte, nombra que se usó un método que alargó la longitud del archivo. Investigando un poco, este podría ser un método de inserción de bits, de expansión de texto, de codificación Run-Length, etc.
+		\end{itemize}
+		
+		\item \textit{¿De qué se trató el método de esteganografiado que no era LSB1 ni LSB4 ni LSBI? ¿Es un método eficaz? ¿Por qué?}
+		\begin{itemize}
+			\item \textbf{Respuesta:} Se cambiaron los últimos bytes del archivo \textit{loimposible.bmp} para incluir un texto plano con instrucciones a seguir (\textit{``al .png cambiar extension por .zip y descomprimir''}). Claramente no es un método eficaz porque con cualquier editor hexadecimal vas a poder extraer esa información fácilmente, más aún si está en ubicaciones fáciles de encontrar (como el final) o si el archivo no es tan pesado (es decir, que no requiera tanto análisis para encontrar textos con sentido). Además analizar la imagen con el editor es una de las primeras cosas que se te ocurren.
+		\end{itemize}
+	
+	\end{itemize}
 	
 	\newpage
 	
@@ -76,17 +131,17 @@
 		\begin{itemize}
 			\item \textit{a) Organización formal del documento:}
 			\begin{itemize}
-				\item \textbf{Respuesta:} contiene por lo menos parte de la estructura típica de un paper: encabezamiento del informe, título, autoría, resumen (abstract), instroducción, discusión y conclusión, y referencias; en el medio de esto, todo el detalle del método. 
+				\item \textbf{Respuesta:} Contiene por lo menos parte de la estructura típica de un paper: encabezamiento del informe, título, autoría, resumen (abstract), instroducción, discusión y conclusión, y referencias; en el medio de esto, todo el detalle del método. 
 			\end{itemize}
 			
 			\item \textit{b) La descripción del algoritmo:}
 			\begin{itemize}
-				\item \textbf{Respuesta:} propone un ejemplo y el pseudocódigo no es complejo, por lo que no es complicado de leer.
+				\item \textbf{Respuesta:} Propone un ejemplo y el pseudocódigo no es complejo, por lo que no es complicado de leer.
 			\end{itemize}
 			
 			\item \textit{c) La notación utilizada, ¿es clara? ¿hay algún error o contradicción?}
 			\begin{itemize}
-				\item \textbf{Respuesta:} es claro pero yo agregaría casos relacionados a la extracción y no sólo al ocultamiento, ya que quedan preguntas sin responder, por ejemplo cuál es la mejor forma de guardar los patrones. 
+				\item \textbf{Respuesta:} Es claro, pero con algunos errores gramaticales. Además, yo agregaría casos relacionados a la extracción y no sólo al ocultamiento, ya que quedan preguntas sin responder, por ejemplo cuál es la mejor forma de guardar los patrones. 
 			\end{itemize}
 		\end{itemize}
 		
@@ -161,34 +216,15 @@
 		
 		\end{itemize}
 		
-		\item \textit{Explicar detalladamente el procedimiento realizado para descubrir qué se había ocultado en cada archivo y de qué modo. Indicar qué se encontró en cada archivo.}
-		\begin{itemize}
-			\item \textbf{Respuesta: TERMINAR} 
-		\end{itemize}
-		
-		\item \textit{Algunos mensajes ocultos tenían, a su vez, otros mensajes ocultos. Indica cuál era ese mensaje y cómo se había ocultado.}
-		\begin{itemize}
-			\item \textbf{Respuesta: TERMINAR} 
-		\end{itemize}
-		
-		\item \textit{Uno de los archivos ocultos era una porción de un video de una película, donde se ve ejemplificado una manera de ocultar información. ¿Qué se ocultaba y sobre qué portador?}
-		\begin{itemize}
-			\item \textbf{Respuesta: TERMINAR} 
-		\end{itemize}
-		
-		\item \textit{¿De qué se trató el método de esteganografiado que no era LSB1 ni LSB4 ni LSBI? ¿Es un método eficaz? ¿Por qué?}
-		\begin{itemize}
-			\item \textbf{Respuesta: TERMINAR} 
-		\end{itemize}
 		
 		\item \textit{¿Por qué la propuesta del documento de Majeed y Sulaiman es realmente una mejora respecto de LSB común?}
 		\begin{itemize}
-			\item \textbf{Respuesta:} porque añade varias capas de seguridad: al invertir los bits de ciertos píxeles en la imagen, después de aplicar LSB1, se dificulta la recuperación de mensajes secretos por parte de un atacante ya que primero debería deducir el patrón utilizado para invertir o saber de dónde recuperarlo. Además al no usar los pixéles rojo, estos actúan como datos de ruido, aumentando la complejidad del proceso de extracción. También busca minimizar la cantidad de píxeles modificados en comparación con los métodos LSB1 y LSB4. Esto conduce a una mejora en la calidad de la imagen esteganográfica resultante
+			\item \textbf{Respuesta:} Porque añade varias capas de seguridad: al invertir los bits de ciertos píxeles en la imagen, después de aplicar LSB1, se dificulta la recuperación de mensajes secretos por parte de un atacante ya que primero debería deducir el patrón utilizado para invertir o saber de dónde recuperarlo. Además al no usar los pixéles rojo, estos actúan como datos de ruido, aumentando la complejidad del proceso de extracción. También busca minimizar la cantidad de píxeles modificados en comparación con los métodos LSB1 y LSB4. Esto conduce a una mejora en la calidad de la imagen esteganográfica resultante
 		\end{itemize}
 		
 		\item \textit{En la implementación se optó por guardar los patrones invertidos al final del mensaje. ¿Es esta una opción más segura que guardarlos antes del mensaje? ¿Por qué?}
 		\begin{itemize}
-			\item \textbf{Respuesta:} Bueno acá tenemos el problema que le planteé a Ana. En principio lo más seguro siempre es al final, porque en principio, valga la redundancia, es más difícil saber dónde termina que dónde empieza (trivial). El problema de guardarlo al final es tener algún dato (que debería no ser tan trivial, sino sería lo mismo que guardarlo al comienzo) que nos diga dónde comienzan los patrones en ese "final". Por ejemplo, nosotros sabíamos que empezaban luego de la extensión, pero nunca podríamos saber dónde terminaba la extensión, ya que el carácter nulo también podría estar invertido.
+			\item \textbf{Respuesta:} Bueno acá tenemos el problema que le planteé a Ana. En principio lo más seguro siempre es al final, porque en principio, valga la redundancia, es más difícil saber dónde termina que dónde empieza (trivial). El problema de guardarlo al final es tener algún dato (que debería no ser tan trivial, sino sería lo mismo que guardarlo al comienzo) que nos diga dónde comienzan los patrones en ese "final". Por ejemplo, nosotros sabíamos que empezaban luego de la extensión, pero nunca podríamos saber dónde terminaba la extensión, ya que el carácter nulo también podría estar invertido (en LSBI).
 		\end{itemize}
 		
 		\item \textit{¿De qué otra manera o en qué otro lugar podría guardarse el registro de los patrones invertidos?}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.12)  23 MAY 2024 01:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.12)  4 JUN 2024 14:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -186,6 +186,21 @@ Package: authblk 2001/02/27 1.3 (PWD)
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\times.sty
 Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
 )
+(C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/framed\framed.sty
+Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
+\OuterFrameSep=\skip55
+\fb@frw=\dimen158
+\fb@frh=\dimen159
+\FrameRule=\dimen160
+\FrameSep=\dimen161
+)
+(C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/varwidth\varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box54
+\sift@deathcycles=\count281
+\@vwid@loff=\dimen162
+\@vwid@roff=\dimen163
+)
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
 
@@ -204,8 +219,8 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen158
-\Gin@req@width=\dimen159
+\Gin@req@height=\dimen164
+\Gin@req@width=\dimen165
 )
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/placeins\placeins.sty
 Package: placeins 2005/04/18  v 2.2
@@ -221,21 +236,21 @@ Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
 )
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count281
-\calc@Bcount=\count282
-\calc@Adimen=\dimen160
-\calc@Bdimen=\dimen161
-\calc@Askip=\skip55
-\calc@Bskip=\skip56
+\calc@Acount=\count282
+\calc@Bcount=\count283
+\calc@Adimen=\dimen166
+\calc@Bdimen=\dimen167
+\calc@Askip=\skip56
+\calc@Bskip=\skip57
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count283
-\calc@Cskip=\skip57
+\calc@Ccount=\count284
+\calc@Cskip=\skip58
 )
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/eso-pic\eso-pic.sty
 Package: eso-pic 2020/10/14 v3.0a eso-pic (RN)
-\ESO@tempdima=\dimen162
-\ESO@tempdimb=\dimen163
+\ESO@tempdima=\dimen168
+\ESO@tempdimb=\dimen169
 
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
@@ -257,57 +272,57 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
 ))
-\AM@pagewidth=\dimen164
-\AM@pageheight=\dimen165
-\AM@fboxrule=\dimen166
+\AM@pagewidth=\dimen170
+\AM@pageheight=\dimen171
+\AM@fboxrule=\dimen172
 
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/pdfpages\pppdftex.def
 File: pppdftex.def 2022/05/22 v0.5v Pdfpages driver for pdfTeX (AM)
 )
-\pdfpages@includegraphics@status=\count284
-\AM@pagebox=\box54
+\pdfpages@includegraphics@status=\count285
+\AM@pagebox=\box55
 \AM@global@opts=\toks27
-\AM@pagecnt=\count285
+\AM@pagecnt=\count286
 \AM@toc@title=\toks28
-\c@AM@survey=\count286
-\AM@templatesizebox=\box55
+\c@AM@survey=\count287
+\AM@templatesizebox=\box56
 ) (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2022/05/18 v4.0.3 Extensive control of page headers and foote
 rs
-\f@nch@headwidth=\skip58
-\f@nch@O@elh=\skip59
-\f@nch@O@erh=\skip60
-\f@nch@O@olh=\skip61
-\f@nch@O@orh=\skip62
-\f@nch@O@elf=\skip63
-\f@nch@O@erf=\skip64
-\f@nch@O@olf=\skip65
-\f@nch@O@orf=\skip66
+\f@nch@headwidth=\skip59
+\f@nch@O@elh=\skip60
+\f@nch@O@erh=\skip61
+\f@nch@O@olh=\skip62
+\f@nch@O@orh=\skip63
+\f@nch@O@elf=\skip64
+\f@nch@O@erf=\skip65
+\f@nch@O@olf=\skip66
+\f@nch@O@orf=\skip67
 ) (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/titling\titling.sty
 Package: titling 2009/09/04 v2.1d maketitle typesetting
-\thanksmarkwidth=\skip67
-\thanksmargin=\skip68
-\droptitle=\skip69
+\thanksmarkwidth=\skip68
+\thanksmargin=\skip69
+\droptitle=\skip70
 )
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
-\lst@mode=\count287
-\lst@gtempboxa=\box56
+\lst@mode=\count288
+\lst@gtempboxa=\box57
 \lst@token=\toks29
-\lst@length=\count288
-\lst@currlwidth=\dimen167
-\lst@column=\count289
-\lst@pos=\count290
-\lst@lostspace=\dimen168
-\lst@width=\dimen169
-\lst@newlines=\count291
-\lst@lineno=\count292
-\lst@maxwidth=\dimen170
+\lst@length=\count289
+\lst@currlwidth=\dimen173
+\lst@column=\count290
+\lst@pos=\count291
+\lst@lostspace=\dimen174
+\lst@width=\dimen175
+\lst@newlines=\count292
+\lst@lineno=\count293
+\lst@maxwidth=\dimen176
 
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
 File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
-\c@lstnumber=\count293
-\lst@skipnumbers=\count294
-\lst@framebox=\box57
+\c@lstnumber=\count294
+\lst@skipnumbers=\count295
+\lst@framebox=\box58
 )
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
 File: listings.cfg 2020/03/24 1.8d listings configuration
@@ -315,11 +330,11 @@ File: listings.cfg 2020/03/24 1.8d listings configuration
 Package: listings 2020/03/24 1.8d (Carsten Heinz)
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count295
+\c@float@type=\count296
 \float@exts=\toks30
-\float@box=\box58
+\float@box=\box59
 \@float@everytoks=\toks31
-\@floatcapt=\box59
+\@floatcapt=\box60
 )
 LaTeX Font Info:    Trying to load font information for T1+ptm on input line 28
 .
@@ -330,8 +345,8 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count296
-\l__pdf_internal_box=\box60
+\l__color_backend_stack_int=\count297
+\l__pdf_internal_box=\box61
 ) (informe.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
@@ -362,16 +377,16 @@ Package caption Info: End \AtBeginDocument code.
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mk
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count297
-\scratchdimen=\dimen171
-\scratchbox=\box61
-\nofMPsegments=\count298
-\nofMParguments=\count299
+\scratchcounter=\count298
+\scratchdimen=\dimen177
+\scratchbox=\box62
+\nofMPsegments=\count299
+\nofMParguments=\count300
 \everyMPshowfont=\toks32
-\MPscratchCnt=\count300
-\MPscratchDim=\dimen172
-\MPnumerator=\count301
-\makeMPintoPDFobject=\count302
+\MPscratchCnt=\count301
+\MPscratchDim=\dimen178
+\MPnumerator=\count302
+\makeMPintoPDFobject=\count303
 \everyMPtoPDFconversion=\toks33
 )
 (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
@@ -394,7 +409,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-\c@lstlisting=\count303
+\c@lstlisting=\count304
 <LogoITBA.png, id=1, 564.1878pt x 277.035pt>
 File: LogoITBA.png Graphic file (type png)
 <use LogoITBA.png>
@@ -444,12 +459,35 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [2]
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 7
+3.
+ (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 90
+.
+
+(C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 98.
+
+
+(C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 98.
+
+
+(C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 70.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 111.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 70.
-LaTeX Info: Redefining \% on input line 70.
+LaTeX Info: Redefining \. on input line 111.
+LaTeX Info: Redefining \% on input line 111.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -460,51 +498,50 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-3.13202pt}.
 
 [3]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 7
-7.
- (C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-LaTeX Font Info:    Trying to load font information for U+msa on input line 79.
+File: ./LogoITBA.png Graphic file (type png)
+<use ./LogoITBA.png>
+Package pdftex.def Info: ./LogoITBA.png  used on input line 125.
+(pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
+LaTeX Info: Redefining \. on input line 125.
+LaTeX Info: Redefining \% on input line 125.
 
 
-(C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 79.
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 15.13202pt, for example:
+(fancyhdr)                \setlength{\headheight}{15.13202pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
 
+(fancyhdr)                \addtolength{\topmargin}{-3.13202pt}.
 
-(C:\Users\Tomas\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-<tricolor_lsb1.png, id=23, 601.4972pt x 584.93532pt>
+[4]
+<tricolor_lsb1.png, id=27, 601.4972pt x 584.93532pt>
 File: tricolor_lsb1.png Graphic file (type png)
 <use tricolor_lsb1.png>
-Package pdftex.def Info: tricolor_lsb1.png  used on input line 100.
+Package pdftex.def Info: tricolor_lsb1.png  used on input line 155.
 (pdftex.def)             Requested size: 256.0748pt x 249.0271pt.
-<tricolor_lsb4.png, id=24, 597.73312pt x 585.68813pt>
+<tricolor_lsb4.png, id=28, 597.73312pt x 585.68813pt>
 File: tricolor_lsb4.png Graphic file (type png)
 <use tricolor_lsb4.png>
-Package pdftex.def Info: tricolor_lsb4.png  used on input line 106.
+Package pdftex.def Info: tricolor_lsb4.png  used on input line 161.
 (pdftex.def)             Requested size: 256.0748pt x 250.91154pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<tricolor_lsbi.png, id=25, 599.99156pt x 585.68813pt>
+<tricolor_lsbi.png, id=29, 599.99156pt x 585.68813pt>
 File: tricolor_lsbi.png Graphic file (type png)
 <use tricolor_lsbi.png>
-Package pdftex.def Info: tricolor_lsbi.png  used on input line 112.
+Package pdftex.def Info: tricolor_lsbi.png  used on input line 167.
 (pdftex.def)             Requested size: 256.0748pt x 249.97318pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 118.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 173.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 118.
-LaTeX Info: Redefining \% on input line 118.
+LaTeX Info: Redefining \. on input line 173.
+LaTeX Info: Redefining \% on input line 173.
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -513,29 +550,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[4 <./tricolor_lsb1.png>]
+[5 <./tricolor_lsb1.png>]
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 161.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 216.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 161.
-LaTeX Info: Redefining \% on input line 161.
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[5 <./tricolor_lsb4.png> <./tricolor_lsbi.png>]
-File: ./LogoITBA.png Graphic file (type png)
-<use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 186.
-(pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 186.
-LaTeX Info: Redefining \% on input line 186.
+LaTeX Info: Redefining \. on input line 216.
+LaTeX Info: Redefining \% on input line 216.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -545,13 +566,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[6]
+[6 <./tricolor_lsb4.png> <./tricolor_lsbi.png>]
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 207.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 228.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 207.
-LaTeX Info: Redefining \% on input line 207.
+LaTeX Info: Redefining \. on input line 228.
+LaTeX Info: Redefining \% on input line 228.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -564,10 +585,10 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 [7]
 File: ./LogoITBA.png Graphic file (type png)
 <use ./LogoITBA.png>
-Package pdftex.def Info: ./LogoITBA.png  used on input line 211.
+Package pdftex.def Info: ./LogoITBA.png  used on input line 247.
 (pdftex.def)             Requested size: 56.9055pt x 27.94183pt.
-LaTeX Info: Redefining \. on input line 211.
-LaTeX Info: Redefining \% on input line 211.
+LaTeX Info: Redefining \. on input line 247.
+LaTeX Info: Redefining \% on input line 247.
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -582,23 +603,24 @@ LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 ) ) 
 Here is how much of TeX's memory you used:
- 9252 strings out of 478338
- 148984 string characters out of 2836699
- 458415 words of memory out of 3000000
- 27541 multiletter control sequences out of 15000+600000
- 507750 words of font info for 68 fonts, out of 8000000 for 9000
+ 9407 strings out of 478338
+ 151819 string characters out of 2836699
+ 460575 words of memory out of 3000000
+ 27683 multiletter control sequences out of 15000+600000
+ 508371 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,18n,75p,706b,641s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 63i,18n,75p,683b,644s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C
 :/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb
-8a.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr
-8a.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr
-8a.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr
-i8a.pfb>
-Output written on informe.pdf (9 pages, 189188 bytes).
+10.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/uc
+rr8a.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/ut
+mb8a.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/ut
+mr8a.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/ut
+mr8a.pfb><C:/Users/Tomas/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/ut
+mri8a.pfb>
+Output written on informe.pdf (9 pages, 196217 bytes).
 PDF statistics:
- 69 PDF objects out of 1000 (max. 8388607)
+ 74 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
