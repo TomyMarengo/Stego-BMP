@@ -25,7 +25,7 @@ mvn clean install
 
 ## Uso
 
-Para usar StegoBMP, ejecuta el siguiente comando:
+Para usar StegoBMP, debes pararte en la carpeta raíz del proyecto y ejecutar un comando similar al siguiente:
 
 ```bash
 java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography #[opciones]
@@ -46,30 +46,36 @@ Las opciones disponibles son:
 Por defecto, el programa utiliza el algoritmo de cifrado AES128 y el modo de cifrado CBC. 
 Siempre se debe especificar una contraseña para cifrar/descifrar el archivo.
 
-## Ejemplos
+
+### Antes de comenzar
+1. En estos casos se usan las carpetas `messages` con el archivo `hello.txt` (archivo a ocultar) y `covers` con la imagen `tricolor.bmp` (imagen portadora) en la carpeta `src/main/resources`.
+
+2. Además, se necesitan crear las carpetas `outputs` y `extracted` en la carpeta `src/main/resources` para almacenar los archivos de salida.
+
+### Ejemplos
 
 Para ocultar un archivo en una imagen BMP utilizando el algoritmo LSB1 sin cifrado:
 
 ```bash
-java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -embed -in ./src/main/resources/messages/hello.txt -p ./src/main/resources/covers/tricolor.bmp -out imagen_con_texto.bmp -steg LSB1
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -embed -in ./src/main/resources/messages/hello.txt -p ./src/main/resources/covers/tricolor.bmp -out ./src/main/resources/embedded/imagen_con_texto.bmp -steg LSB1
 ```
 
 Para extraer ese archivo de la imagen BMP:
 
 ```bash
-java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p imagen_con_texto.bmp -out mensaje_extraido -steg LSB1
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p ./src/main/resources/embedded/imagen_con_texto.bmp -out ./src/main/resources/extracted/mensaje_extraido -steg LSB1
 ```
 
 Para ocultarlo utilizando el algoritmo LSB4 con cifrado AES256 y modo OFB:
 
 ```bash
-java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -embed -in ./src/main/resources/messages/hello.txt -p ./src/main/resources/covers/tricolor.bmp -out imagen_con_texto_cifrado.bmp -steg LSB4 -a aes256 -m ofb -pass secreto
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -embed -in ./src/main/resources/messages/hello.txt -p ./src/main/resources/covers/tricolor.bmp -out ./src/main/resources/embedded/imagen_con_texto_cifrado.bmp -steg LSB4 -a aes256 -m ofb -pass secreto
 ```
 
 Para extraerlo de la imagen BMP:
 
 ```bash
-java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p imagen_con_texto_cifrado.bmp -out mensaje_descifrado_extraido -steg LSB4 -a aes256 -m ofb -pass secreto
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p ./src/main/resources/embedded/imagen_con_texto_cifrado.bmp -out ./src/main/resources/extracted/mensaje_descifrado_extraido -steg LSB4 -a aes256 -m ofb -pass secreto
 ```
 
 ## Licencia
