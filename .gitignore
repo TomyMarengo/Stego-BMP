@@ -41,6 +41,3 @@ build/
 src/main/resources/outputs/
 src/main/resources/extracted/
 src/main/resources/embedded/
-src/main/resources/arch/
-src/main/resources/movies/
-src/main/resources/text/

@@ -86,9 +86,10 @@ java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extr
 
 ## Misterio
 
-En la carpeta `src/main/resources/mystery` se encuentran imagenes BMP que contienen diferentes mensajes ocultos. 
+En la carpeta `src/main/resources/mystery` se deberían cargar las imágenes con los mensajes ocultos.
+No se incluyen las últimas dos ya que estas son muy pesadas.
 
-Para descifrarlos se ejecutaron los siguientes comandos:
+Para obtener los mensajes ocultos se ejecutaron los siguientes comandos:
 
 ### kings.bmp
 ```bash
