@@ -1,12 +1,14 @@
 # StegoBMP
 
-StegoBMP es un programa para esteganografía de imágenes BMP utilizando varios algoritmos, incluidos LSB1, LSB4 y LSBI. Este README proporciona una guía completa sobre cómo usar el programa, ejemplos y documentación detallada.
+StegoBMP es un programa para esteganografía de imágenes BMP utilizando varios algoritmos, incluidos LSB1, LSB4 y LSBI.
+Este README proporciona una guía completa sobre cómo usar el programa, ejemplos, la resolución del misterio y documentación detallada.
 
 ## Índice
 
 - [Instalación](#instalación)
 - [Uso](#uso)
 - [Ejemplos](#ejemplos)
+- [Misterio](#misterio)
 - [Licencia](#licencia)
 
 ## Instalación
@@ -52,9 +54,9 @@ Las opciones disponibles son:
 * Siempre se debe especificar una contraseña para cifrar/descifrar el archivo.
 
 ### Antes de comenzar
-1. En estos casos se usan las carpetas `messages` con el archivo `hello.txt` (archivo a ocultar) y `covers` con la imagen `tricolor.bmp` (imagen portadora) en la carpeta `src/main/resources`.
+1. En los siguientes ejemplos se usan las carpetas `messages` con el archivo `hello.txt` (archivo a ocultar) y `covers` con la imagen `tricolor.bmp` (imagen portadora) en la carpeta `src/main/resources`.
 
-2. Además, se necesitan crear las carpetas `outputs` y `extracted` en la carpeta `src/main/resources` para almacenar los archivos de salida.
+2. Además, se utilizan las carpetas `embedded` y `extracted` en la carpeta `src/main/resources` para almacenar los archivos de salida.
 
 ### Ejemplos
 
@@ -80,6 +82,33 @@ Para extraerlo de la imagen BMP:
 
 ```bash
 java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p ./src/main/resources/embedded/imagen_con_texto_cifrado.bmp -out ./src/main/resources/extracted/mensaje_descifrado_extraido -steg LSB4 -a aes256 -m ofb -pass secreto
+```
+
+## Misterio
+
+En la carpeta `src/main/resources/mystery` se encuentran imagenes BMP que contienen diferentes mensajes ocultos. 
+
+Para descifrarlos se ejecutaron los siguientes comandos:
+
+### kings.bmp
+```bash
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p ./src/main/resources/mystery/kings.bmp -out ./src/main/resources/extracted/ -steg LSB1
+```
+
+### paris.bmp
+
+```bash
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p ./src/main/resources/mystery/paris.bmp -out ./src/main/resources/extracted/ -steg LSBI
+```
+
+### loimposible.bmp
+
+El mensaje oculto estaba oculto como texto plano al final del archivo .
+
+### lima.bmp
+
+```bash
+java -cp target/StegoBMP-1.0-SNAPSHOT.jar ar.edu.itba.cripto.Steganography -extract -p ./src/main/resources/mystery/lima.bmp -out ./src/main/resources/extracted/ -steg LSB4 -a AES128 -m cbc -pass sorpresa
 ```
 
 ## Licencia

@@ -23,10 +23,10 @@ public class StegranographyTest {
         Path extractedFile;
 
         if (encrypt) {
-            stegoFile = Paths.get("src", "main", "resources", "outputs", bmpName + "-" + steg + "-" + algorithm + "-" + mode + ".bmp");
+            stegoFile = Paths.get("src", "main", "resources", "embedded", bmpName + "-" + steg + "-" + algorithm + "-" + mode + ".bmp");
             extractedFile = Paths.get("src", "main", "resources", "extracted", "extracted-" + messageName + "-" + steg + "-" + algorithm + "-" + mode);
         } else {
-            stegoFile = Paths.get("src", "main", "resources", "outputs", bmpName + "-" + steg + ".bmp");
+            stegoFile = Paths.get("src", "main", "resources", "embedded", bmpName + "-" + steg + ".bmp");
             extractedFile = Paths.get("src", "main", "resources", "extracted", "extracted-" + messageName + "-" + steg);
         }
 
@@ -61,7 +61,7 @@ public class StegranographyTest {
     @MethodSource("provideParameters")
     public void testLoImposible(String steg, boolean encrypt, String algorithm, String mode) throws IOException {
         String name = "lima";
-        Path stegoFile = Paths.get("src", "main", "resources", "outputs", name + ".bmp");
+        Path stegoFile = Paths.get("src", "main", "resources", "embedded", name + ".bmp");
         Path extractedFile;
 
         if (encrypt) {
