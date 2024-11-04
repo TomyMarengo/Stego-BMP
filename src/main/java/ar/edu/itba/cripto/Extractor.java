@@ -25,6 +25,7 @@ public class Extractor extends Operator {
 
             byte[] cipherData = switch (stegMethod) { // cypherLength || cipherData = (length || data || extension)
                 case "lsb1" -> extractLSB1(bmpBytes, true);
+                case "lsb2" -> extractLSB2(bmpBytes, true);
                 case "lsb4" -> extractLSB4(bmpBytes, true);
                 case "lsbi" -> extractLSBI(bmpBytes, true);
                 default -> throw new IllegalArgumentException("Invalid steganography method: " + stegMethod);
@@ -38,6 +39,7 @@ public class Extractor extends Operator {
 
             data = switch (stegMethod) { // length || data || extension
                 case "lsb1" -> extractLSB1(bmpBytes, false);
+                case "lsb2" -> extractLSB2(bmpBytes, false);
                 case "lsb4" -> extractLSB4(bmpBytes, false);
                 case "lsbi" -> extractLSBI(bmpBytes, false);
                 default -> throw new IllegalArgumentException("Invalid steganography method: " + stegMethod);
@@ -99,6 +101,68 @@ public class Extractor extends Operator {
                 currentByte = 0;
                 for (int bit = 7; bit >= 0; bit--) {
                     currentByte |= (byte) ((image[offset] & 1) << bit);
+                    offset++;
+                }
+                extensionBytes.add(currentByte);
+                if (currentByte == 0) {
+                    zeroNotFound = false;
+                }
+            }
+
+            // Convert the extension bytes to a character string
+            byte[] extensionArray = new byte[extensionBytes.size()];
+            for (int i = 0; i < extensionArray.length; i++) {
+                extensionArray[i] = extensionBytes.get(i);
+            }
+            /* returnData array with length || data || extension */
+            byte[] returnData = new byte[bytesLength + extensionArray.length];
+            System.arraycopy(extractedData, 0, returnData, 0, bytesLength);
+            System.arraycopy(extensionArray, 0, returnData, bytesLength, extensionArray.length);
+
+            return returnData;
+        }
+
+        return extractedData;
+    }
+
+    private byte[] extractLSB2(byte[] image, boolean encrypted) {
+        int offset = SteganographyUtil.HEADER_SIZE;
+
+        // Extract the data length (assuming 2 bits per image byte)
+        int dataLength = 0;
+        for (int i = 0; i < DATA_LENGTH_SIZE * 4; i++) { // 4 image bytes per data byte
+            int twoBits = image[offset] & 0x03; // Get the last 2 bits
+            dataLength = (dataLength << 2) | twoBits; // Shift left by 2 bits and add the extracted bits
+            offset++;
+        }
+
+        // Calculate the total length of the data
+        int bytesLength = DATA_LENGTH_SIZE + dataLength;
+
+        // Extract [cipherLength || cipherData] or [length || data]
+        byte[] extractedData = new byte[bytesLength];
+        offset = SteganographyUtil.HEADER_SIZE;
+        for (int i = 0; i < bytesLength; i++) {
+            byte currentByte = 0;
+            for (int j = 0; j < 4; j++) { // 4 image bytes per data byte
+                int twoBits = image[offset] & 0x03; // Get the last 2 bits
+                currentByte = (byte) ((currentByte << 2) | twoBits); // Shift left by 2 bits and add the extracted bits
+                offset++;
+            }
+            extractedData[i] = currentByte;
+        }
+
+        // Extract the extension if it is not encrypted
+        if (!encrypted) {
+            List<Byte> extensionBytes = new ArrayList<>();
+            boolean zeroNotFound = true;
+            byte currentByte;
+
+            while (zeroNotFound) {
+                currentByte = 0;
+                for (int j = 0; j < 4; j++) { // 4 image bytes per data byte
+                    int twoBits = image[offset] & 0x03; // Get the last 2 bits
+                    currentByte = (byte) ((currentByte << 2) | twoBits); // Shift left by 2 bits and add the extracted bits
                     offset++;
                 }
                 extensionBytes.add(currentByte);

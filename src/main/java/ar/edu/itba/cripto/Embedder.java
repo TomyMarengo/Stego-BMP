@@ -59,6 +59,7 @@ public class Embedder extends Operator {
         System.out.println("(EMBED) Embedding...");
         byte[] stegoImage = switch (stegMethod) {
             case "lsb1" -> embedLSB1(bmpBytes, dataToHide);
+            case "lsb2" -> embedLSB2(bmpBytes, dataToHide);
             case "lsb4" -> embedLSB4(bmpBytes, dataToHide);
             case "lsbi" -> embedLSBI(bmpBytes, dataToHide);
             default -> throw new IllegalArgumentException("Invalid steganography method: " + stegMethod);
@@ -88,6 +89,26 @@ public class Embedder extends Operator {
             for (int bit = 7; bit >= 0; bit--) {
                 int bitValue = (b >> bit) & 1;
                 image[offset] = (byte) ((image[offset] & 0xFE) | bitValue);
+                offset++;
+            }
+        }
+        return image;
+    }
+
+    private byte[] embedLSB2(byte[] image, byte[] data) {
+        /* Check if the image is large enough to hold the data */
+        int imageSize = image.length - SteganographyUtil.HEADER_SIZE;
+        int dataSize = data.length * 4; // 2 bits per image byte, so 4 image bytes per data byte
+        if (dataSize > imageSize) {
+            throw new IllegalArgumentException("Data is too large to be embedded in the image using LSB2, maximum size is " + imageSize / 4 + " bytes");
+        }
+
+        int offset = SteganographyUtil.HEADER_SIZE;
+        for (byte b : data) {
+            // Split the byte into four 2-bit segments
+            for (int shift = 6; shift >= 0; shift -= 2) {
+                int twoBits = (b >> shift) & 0x03; // Extract 2 bits
+                image[offset] = (byte) ((image[offset] & 0xFC) | twoBits); // Embed 2 bits
                 offset++;
             }
         }
